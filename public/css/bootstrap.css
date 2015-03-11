@@ -6330,3 +6330,13 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.u-msg1{position:fixed;_position:absolute;z-index:9999;top:-50px;left:50%;min-width:200px;_width:400px;color:#fff;opacity:0;-webkit-transition:0.5s cubic-bezier(1,0,0.5,0);-moz-transition:0.5s cubic-bezier(1,0,0.5,0);transition:0.5s cubic-bezier(1,0,0.5,0);}
+.u-msg1 p{position:relative;left:-50%;height:45px;line-height:45px;padding:0 20px;text-align:center;border-radius:0 0 5px 5px;}
+.u-msg1 a,.u-msg1 a:hover{color:#fff;}
+.u-msg1 .closer{margin-left:10px;font-size:18px;}
+.u-msg1-show{top:0;opacity:1;-webkit-transition:0.5s cubic-bezier(0,0.5,0,1);-moz-transition:0.5s cubic-bezier(0,0.5,0,1);transition:0.5s cubic-bezier(0,0.5,0,1);}
+.u-msg1-hint p{background-color:#4993c6;}
+.u-msg1-error p{background-color:#e74c3c;}
+.u-msg1-success p{background-color:#1abc9c;}
+.u-msg1-auto p{height:auto;line-height:36px;}
+.u-msg2{display:block;padding:40px 0;text-align:center;font-size:16px;}

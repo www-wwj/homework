@@ -1,0 +1,114 @@
+@import './5fticon.mcss';
+
+@abstract '_config.mcss';
+
+/* 文本输入框，也可用于div、span等元素 */
+.u-ipt{
+    $inline-block();width:248px;padding:9px 10px;height:12px;border:1px solid $bd0;$box-sizing:content-box;font:$fs0/20px $ff0;color:$fc1;background:#fff;
+    &:focus{border-color:#74b9ef;$box-shadow:0 0 5px rgba(#74b9ef,0.18);}
+    /* 这里设置line-height为1 FIX在chrome下输入框在无内容的情况下光标偏移的问题. */
+	line-height: 1;
+}
+textarea.u-ipt{height:60px;}
+/* 文本输入框-窄 */
+.u-ipt-1{width:98px;}
+/* 文本输入框-出错 */
+.u-ipt-err{border-color:#c00 #e00 #e00;}
+/* 文本输入框-宽度自适应 */
+.u-iptwrap{display:block;padding-right:22px;}
+.u-iptwrap .u-ipt{width:100%;margin-right:-22px;}
+/* 按钮-默认较大的绿底白字 */
+.u-btn{
+	position:relative;$inline-block();*overflow:visible;$box-sizing:content-box;padding:0 30px;height:32px;font:$fs0/32px $ff0;border:0;border-radius:3px;color:$fc4;text-decoration:none;text-align:center;vertical-align:middle;cursor:pointer;background:$bg1;
+	&::-moz-focus-inner{padding:0;margin:0;border:0;}
+	&:hover{color:$fc4;text-decoration:none;background:$bg1h;}
+	&:active{background:$bg1a;}
+	.icn{margin:0 6px 0 -6px;vertical-align:middle;}
+	&.z-dis,&.z-dis:hover,&.z-dis:active{cursor:not-allowed;background:$bg6;}
+}
+/* 按钮-颜色-浅灰 */
+.u-btn-c1{
+    background:$bg6;
+    &:hover{background:#ccc;color:$fc1;}
+    &:active{background:$bg6a;color:$fc4;}
+}
+/* 按钮-颜色-藏青 */
+.u-btn-c2{
+    background:$bg9;color:$fc4;
+    &:hover{background:$bg9h;}
+    &:active{background:$bg9a;}
+}
+
+// 按钮 红色
+.u-btn-r1{
+  $primary = #c0392b;
+  background:$primary; color: #fff;
+  &:hover{
+    background: l-adjust(#c0392b, 8%);
+  }
+  &:active{
+    background: l-adjust(#c0392b, -4%);
+  }
+}
+/* 按钮-颜色-白底灰字 */
+.u-btn-c3{
+	background: #fff; color: #666; border:1px solid #ddd;height:30px;line-height:30px;
+	&:hover{
+	  background: l-adjust(#dedede, 8%);color:#666;
+	}
+	&:active{
+	  background: l-adjust(#dedede, -4%);
+	} 
+}
+/* 按钮-go */
+.u-btn-go{
+    background:#969696;
+    &:hover{background:#ccc;color:$fc1;}
+    &:active{background:$bg6a;color:$fc4;}
+}
+/* 按钮-非常小 */
+.u-btn-s0{height:20px;line-height:20px;border-radius:2px;padding:0 5px;}
+/* 按钮-较小 */
+.u-btn-s1{height:26px;line-height:26px;border-radius:2px;padding:0 15px;}
+/* 按钮-较大 */
+.u-btn-s2{height:45px;border-radius:4px;padding:0 20px;font:$fs1/45px $ff1;}
+/* 按钮-保证最小宽 */
+.u-btn-sw{min-width:65px;}
+/* 按钮-宽度撑满 */
+.u-btn-full{display:block;}
+/* 按钮-状态 */
+.u-btn-dis,.u-btn-dis:hover,.u-btn-dis:active{color: #7b7b7b;border-color: #bdbdbd;background-color: #fafafa;cursor: not-allowed;}
+/* 全局消息 */
+.u-msg1{
+	position: fixed;_position:absolute;z-index:9999;top:-50px;left: 50%;min-width: 200px;_width:400px;color: #fff;opacity:0;$transition:0.5s $beginslowly;
+	p{position: relative;left: -50%;height:45px;line-height:45px;padding:0 20px;text-align: center;border-radius:0 0 5px 5px;}
+	a,a:hover{color:#fff;}
+	.closer{margin-left:10px;font-size:18px;}
+}
+.u-msg1-show{top:0;opacity:1;$transition:0.5s $endslowly;}
+.u-msg1-hint p{background-color:#4993c6;}
+.u-msg1-error p{background-color:#e74c3c;}
+.u-msg1-success p{background-color:#1abc9c;}
+.u-msg1-auto{p{height: auto; line-height: 36px;}}
+/* 数据提示消息 */
+.u-msg2{display:block;padding:40px 0;text-align:center;font-size:$fs2;}
+/* 加载中 */
+.u-load{
+    display:block;padding:40px 0;text-align:center;font-size:$fs2;
+    .loadicon, &icn{margin-left:15px;@extend loading;}
+    &icn{
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+    }
+}
+.u-load-1{
+  padding: 1em 0;
+  .loadicon{margin-right: 15px;}
+}
+
+/* 多行文本输入框 */
+.u-mtxt{width:100%;height:350px;padding:5px 15px;$box-sizing:border-box; line-height:18px;color:#666;overflow-y:auto;border:0;background:#fff;}
+.u-err{color:#f00;}/* 错误提醒文字 */
+.u-stip{color: #999;}
+

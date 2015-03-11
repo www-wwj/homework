@@ -1,4 +1,12 @@
 <% include common/head.html %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title><%=title%></title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+</head>
 <style type="text/css">
 	body {
 	  padding-top: 40px;
@@ -43,26 +51,29 @@
 </style>
 <body>
 	<div id="container" class="container">
-	<!--        <% if (locals.success) { %> 
-	          <div id="alt_sucess" class="alert alert-success"> 
-	            <%- success %> 
-	          </div> 
-	       <% } %> 
-
-	      <% if (locals.error) { %> 
-	        <div id="alt_warning" class="alert alert-warning"> 
-	          <%= error %> 
-	        </div> 
-	      <% } %>  -->
-
+	<% if (locals.errors) { %> 
+		<div id="alt_warning" class="alert alert-warning"> 
+		  <%= errors %> 
+		</div> 
+	<% } %>  
 		<form class="form-signin" role="form" method="post">
-	        <h4 class="form-signin-heading">注册</h4>
-	        <input id="txtUserName" name="txtUserName" type="text" class="form-control" placeholder="用户名" required autofocus />
-	        <input id="txtUserPwd" name="txtUserPwd" type="password" class="form-control" placeholder="密码" required/>
-	        <input id="txtUserRePwd"  name="txtUserRePwd" type="password" class="form-control" placeholder="重复密码" required/>   
-	        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">注  册</button>
-	        <a class="btn btn-link" href="/login" role="button">登  录</a>
+	        <h4 class="form-signin-heading">登 录</h4>
+	        <input id="username" name="username" type="text" class="form-control" placeholder="用户名" required autofocus />
+	        <input id="password" name="password" type="password" class="form-control" placeholder="密码" required/>  
+	        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">登 录</button>
 		</form>    
 	</div> 
 </body>
-<% include common/foot.html %>
+<!-- @DEFINE -->
+<script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
+<script>
+NEJ.define([
+        '{pro}base/util.js',
+      ],function(du){
+          console.log(du)
+          debugger
+          du.showSuccess('sss');
+      });
+	
+</script>
+</html>

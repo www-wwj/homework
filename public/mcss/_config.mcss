@@ -1,0 +1,105 @@
+@abstract '_prefix.mcss';
+@import '../mass/index.mcss';
+/**
+@import 'http://nec.netease.com/download/framework/mass/mass/index.mcss';
+**/
+/**
+ * 	配置信息，在mcss文件顶部用abstract调用，但不会被解析成css
+ */
+/* 字体 */
+$pagewidth = 1250px;
+/* 单列独立布局的页面宽度 */
+$pagewidth-1 = 1100px;
+$rsidewidth = 180px;
+$ff0 = arial,'simsun';
+$ff1 = 'STHeitiSC-Light','STHeiti', 'microsoft yahei','Open Sans','Helvetica Neue',arial,'simsun';
+$ff2 = 'simsun',arial;
+$ffen = 'Open Sans','Helvetica Neue','Helvetica',Arial,'Hiragino Sans GB',
+'Microsoft YaHei','SimSun',sans-serif;
+/* 文字大小 */
+$fs0 = 12px;
+$fs1 = 14px;
+$fs2 = 16px;
+$fs3 = 18px;
+/* 文字色 */
+$fc0 = #333;
+$fc1 = #666;
+$fc2 = #999;
+$fc3 = #ddd;
+$fc4 = #fff;
+$fc5 = #00b58a;/* 绿 */
+$fc6 = #ccc;/* placeholder */
+$bluelink = #7cafdb; /* 蓝色 */
+/* 边框色 */
+$bd0 = #ddd;
+$bd1 = #ccc;
+/* 背景色 */
+$bg0 = #fff;
+$bg1 = #00b58a;/* 绿 */
+$bgsdr = #f2f2f2;/* 右侧栏底色 */
+$bg1h = #0c9;/* 绿hover */
+$bg1a = #009a75;/* 绿active */
+$bg3 = #2980b9;/* 蓝 */
+$bg4 = #80d4d8;/* 青 */
+$bg5 = #f5f5f5;
+$bg6 = #bdc3c7;/* 浅蓝灰 */
+$bg6h = #ecf0f1;/* 浅蓝灰hover */
+$bg6a = #aab3b8;/* 浅蓝灰active */
+$bg7 = #fcfcfc;
+$bg8 = #f8f8f8;
+$bg9 = #34495e;/* 藏青色 */
+$bg9h = #5d6d7e;/* 藏青色hover */
+$bg9a = #2c3e50;/* 藏青色active */
+$bg10 = #e74c3c;/* 红 */
+/* timing function */
+$endslowly = cubic-bezier(0, 0.5, 0, 1);/* 结束慢 */
+$beginslowly = cubic-bezier(1, 0, 0.5, 0);/* 开始慢 */
+/* functions */
+$clearfix = {
+	zoom:1;
+	&:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
+}
+$inline-block = {display:inline-block;*display:inline;*zoom:1;}
+$yahei = {font-family:$ff1;}
+$simsun = {font-family:$ff0;}
+$justify = {text-align:justify;text-justify:inter-ideograph;}
+$nowrap = {word-wrap:normal;white-space:nowrap;}
+$pre = {overflow:hidden;text-align:left;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;}
+$break-word = {white-space:normal;word-wrap:break-word;word-break:break-all;}
+$ellipsis = {overflow:hidden;word-wrap:normal;white-space:nowrap;text-overflow:ellipsis;}
+$noselect = {$user-select:none;}
+$opacity = ($oc=0){opacity:$oc;filter:alpha(opacity=round($oc * 100));}
+$hideText = {overflow:hidden;text-indent:-20000px;}
+$placeholder = {
+    .z-placeholder-parent{position:relative;display:block;}
+    .z-placeholder{height:16px;padding:6px;font:$fs0/16px $ff0;}
+}
+$keyframes = ($name, $block){
+    @-webkit-keyframes $name{
+        $block(-webkit-);
+    } 
+    @-moz-keyframes $name{
+        $block(-moz-);
+    }
+    @-ms-keyframes $name{
+        $block(-ms-);
+    } 
+    @-o-keyframes $name{
+        $block(-o-);
+    } 
+    @keyframes $name{
+        $block('');
+    } 
+}
+/*  media query  */
+$media = ($option,$width,$block){
+    @media screen and ($option+'-width':$width){
+        $block('');
+    }
+}
+
+/* to be extended */
+clearfix{
+    zoom:1;
+    &:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
+}

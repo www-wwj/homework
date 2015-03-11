@@ -1,0 +1,37 @@
+@abstract '_config.mcss';
+/* reset */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+textarea[readonly]{cursor:default;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:normal;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{font:$fs1/1.14 $ff1;color:$fc1;outline:0;}
+body{background:$bg0;}
+select{height:28px;margin:0;font-family:$ff0;font-size:$fs0;color:#999;padding:3px;border:1px solid #ccc;box-shadow:inset 0 1px 0 0 #f5f5f5;border-radius:2px;background-color: #fff;}
+a,a:hover{color:$fc0;}
+[unselectable=on]{$noselect();}
+.z-placeholder{color:$fc6 !important;}
+:-moz-placeholder{color:$fc6 !important;}
+::-moz-placeholder{color:$fc6 !important;}
+:-ms-input-placeholder{color:$fc6 !important;}
+::-webkit-input-placeholder{color:$fc6 !important;}
+
+
+/* 通用动画 */
+$keyframes(opacityshow,($prefix){
+    0%{opacity:0;}
+    100%{opacity:1;}
+});

@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var ejs = require('ejs');
 
 var routes = require('./routes/index');
@@ -21,14 +22,18 @@ app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('Wilson'));
+app.use(session({secret: 'wilson'}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', routes.login);
+app.get('/', routes.index);
 app.get('/login', routes.login);
 app.post('/login', routes.doLogin);
 app.get('/logout', routes.logout);
 app.get('/home', routes.home);
+app.get('/main', routes.main);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

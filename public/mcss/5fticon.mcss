@@ -1,0 +1,22 @@
+@abstract '_config.mcss';
+
+/* function */
+.f-cb,.f-cbli li{$clearfix();}
+.f-ff1{$yahei();}
+.f-fs0{font-size:$fs0;}
+.f-fs1{font-size:$fs1;}
+.f-ib{$inline-block();}
+.f-taj{$justify();}
+.f-wsn{$nowrap();}
+.f-pre{$pre();}
+.f-wwb{$break-word();}
+.f-toe{$ellipsis();}
+.f-usn{$noselect();}
+.f-prz{position:relative;zoom:1;}
+.f-dn{display:none;}
+.f-fl{float:left;}
+.f-fr{float:right;}
+.f-fwb{font-weight:bold;}
+.f-fwn{font-weight:normal;}
+.f-vam,.f-vama *{vertical-align:middle;}
+.f-du,.f-du:hover{text-decoration:underline;}
