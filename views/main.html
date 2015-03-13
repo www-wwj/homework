@@ -1,196 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <title><%=title%></title>
-
-    <!-- Bootstrap core CSS -->
-	<link href="css/bootstrap.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-
+  <meta charset="utf-8">
+  <title>题目列表啦</title>
+  <% include common/css.html %>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      	<div class="container-fluid">
-	        <div class="navbar-header">
-                <a class="navbar-brand" href="#">Project name</a>
-	        </div>
-            <nav class="navbar-right"> <a href="#">欢迎，圣斗士</a></nav>
-		</div>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
+<div class="g-bd f-cb">
+    <% include common/nav.html %>
+    <div class="g-mn">
+        <div class="g-mnc">
+            <div class="g-doc">
+                <div class="m-status">
+                   <a class="u-btn">新增题库</a>
+                </div>
+                <div class="m-list f-mgT"> 
+                  <div class="head">
+                    <div class="headwrap">
+                        <div class="col col-w2">操作</div>
+                        <div class="col col-w1">发送对象</div>
+                        <div class="col col-w2">时间</div>
+                        <div class="col col-w2">状态</div>
+                        <div class="col col-at">消息</div>
+                    </div>
+                  </div>
+                <ul class="list j-list">
+                    <li class="item">
+                        <div class="col col-w2">操作</div>
+                        <div class="col col-w1">发送对象</div>
+                        <div class="col col-w2">时间</div>
+                        <div class="col col-w2">状态</div>
+                        <div class="col col-at">消息</div>
+                    </li>
+                    <li class="item">
+                        <div class="col col-w2">操作</div>
+                        <div class="col col-w1">发送对象</div>
+                        <div class="col col-w2">时间</div>
+                        <div class="col col-w2">状态</div>
+                        <div class="col col-at">消息</div>
+                    </li>
+                    <li class="item">
+                        <div class="col col-w2">操作</div>
+                        <div class="col col-w1">发送对象</div>
+                        <div class="col col-w2">时间</div>
+                        <div class="col col-w2">状态</div>
+                        <div class="col col-at">消息</div>
+                    </li>            
+                </ul>
+                <!-- <div class="m-page"></div> -->
+                <div id="contact-list-page2" class="m-page auto-1426265116300-parent"><div class="auto-1426265116300"><a href="#" class="zbtn zprv js-disabled" id="auto-id-1426265116427">&lt;</a><a href="#" class="zpgi zpg1 js-selected" id="auto-id-1426265116433">1</a><a href="#" class="zpgi zpg2" id="auto-id-1426265116435">2</a><a href="#" class="zpgi zpg3" id="auto-id-1426265116437">3</a><a href="#" class="zpgi zpg4" id="auto-id-1426265116439">4</a><a href="#" class="zpgi zpg5" id="auto-id-1426265116441" style="display: none;"></a><a href="#" class="zpgi zpg6" id="auto-id-1426265116443" style="display: none;"></a><a href="#" class="zpgi zpg7" id="auto-id-1426265116445" style="display: none;"></a><a href="#" class="zpgi zpg8" id="auto-id-1426265116447" style="display: none;"></a><a href="#" class="zbtn znxt" id="auto-id-1426265116429">&gt;</a></div></div>
+            </div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

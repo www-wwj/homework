@@ -41,6 +41,6 @@ router.home = function(req, res){
 res.render('home', { title: 'Home',username: username});
 };
 router.main = function(req, res){
-	res.render('main', { title: '首页'});
+	res.render('main', { userType: 1,pageName:'bank'});
 };
 module.exports = router;

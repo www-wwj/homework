@@ -20,3 +20,4 @@
 .f-fwn{font-weight:normal;}
 .f-vam,.f-vama *{vertical-align:middle;}
 .f-du,.f-du:hover{text-decoration:underline;}
+.f-mgT{margin-top: 30px;}

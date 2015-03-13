@@ -1,0 +1,24 @@
+ <div class="g-sd m-nav">
+    <div class="tt">选课系统</div>
+    <% if(userType==0){%>
+    <ul class="nav">
+        <li <% if(pageName=="index"){%> class="z-crt"  <%}%>>首页</li>
+        <li <% if(pageName=="user"){%> class="z-crt"  <%}%>>用户管理</li>
+        <li <% if(pageName=="channel"){%> class="z-crt"  <%}%>>板块管理</li>
+    </ul>
+    <%}%>
+    <% if(userType==1){%>
+    <ul class="nav">
+        <li <% if(pageName=="index"){%> class="z-crt"  <%}%>>首页</li>
+        <li <% if(pageName=="bank"){%> class="z-crt"  <%}%>>题库</li>
+        <li <% if(pageName=="create"){%> class="z-crt"  <%}%>>组卷</li>
+    </ul>
+    <%}%>
+    <% if(userType==2){%>
+    <ul class="nav">
+        <li class="z-crt">首页</li>
+        <li>测试</li>
+        <li>成绩统计</li>
+    </ul>
+    <%}%>
+</div>
