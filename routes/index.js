@@ -41,6 +41,9 @@ router.home = function(req, res){
 res.render('home', { title: 'Home',username: username});
 };
 router.main = function(req, res){
-	res.render('main', { userType: 1,pageName:'bank'});
+	res.render('teacher/main', { userType: 1,pageName:'bank'});
+};
+router.edit = function(req, res){
+	res.render('teacher/edit', { userType: 1,pageName:'bank'});
 };
 module.exports = router;

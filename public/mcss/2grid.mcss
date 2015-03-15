@@ -16,12 +16,13 @@ html{overflow-y:scroll;}
 		float:right;
 		width:100%;
 		.g-mnc{
-			margin-left:210px;
+			margin-left:200px;
+			min-width: 600px;
 		}
 	}
 }
 .g-doc{
-	padding: 10px;
+	padding: 10px 30px;
 }
 
 

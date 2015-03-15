@@ -4,7 +4,7 @@
     background:#fff;
     border-right: 1px solid $bd0;
     .tt{
-      height: 50px;
+      height: 68px;
       background-color: blue;
     }
     .nav{
@@ -104,7 +104,79 @@ div.m-page{
           vertical-align: middle;
           height: 12px;
           font-size: 12px;
-          text-align: center
+          text-align: center;
         }
     }
+}
+/*二级菜单*/
+.m-subnav{
+    padding-top: 10px;
+    height: 57px;
+    border-bottom: 1px solid $bd0;
+    ul{float:left;margin-left: 20px;}
+    li{ 
+        position:relative;float:left;
+        $bgcolor = #fbfbfb;
+        a{
+            float:left;
+            line-height: 53px;
+            padding:0 20px;
+            text-align: center;
+            background:#fff;
+            color:#666; 
+            border-bottom:4px solid #fff;
+            &:hover{background:$bgcolor;
+            border-color:$bgcolor;}
+        }
+        &.z-crt a{
+          position:relative;background:$bgcolor;
+          border-color:#7cafdb;
+          &:hover{cursor:default;}
+        }
+    }
+}
+/* 表单 */
+.m-form{
+  /* 表单中的区分块 */
+  .fmgroup{
+      padding:40px 0 20px 26px;border-top:4px solid $bd0;
+      &:first-child{border-top:0;}
+  }
+  fieldset{margin:0 0 20px;padding:1px 0 0;}
+  legend{padding:0 0 20px;font-weight: bold;line-height:18px;}
+  .supply{margin: -43px 0 20px 175px;line-height: 2;}
+  table{width:100%;}
+  th, td{padding:6px 0;}
+  th{width: 176px;line-height: 30px;vertical-align: top;}
+  select{margin-right: 10px;}
+  input[type=checkbox],input[type=radio]{margin-right:5px;}
+  .tip{margin-left:30px;line-height:20px;color:$fc2;}
+  .btnarea{
+      padding-top:20px;
+      .u-btn{margin-right:15px;}
+  }
+  .iptwrap{
+      @extend clearfix;
+      .tip{float:left;}
+  }
+  .iptwrap-upload{padding-top:4px;}
+  .iptarea{float:left;width:270px;}
+  
+  .sms .u-ipt {
+    float: left;
+  }
+
+  .sms .tip {
+    float: left;
+    line-height: 16px;
+  }
+
+  .sms a.z-disabled,.sms a.z-disabled:hover {
+    color: #999;
+    cursor: default;
+  }
+  /* 验证图片 */
+  .ccaptcha {
+    img{vertical-align: middle;}
+  }
 }

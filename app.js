@@ -33,6 +33,7 @@ app.post('/login', routes.doLogin);
 app.get('/logout', routes.logout);
 app.get('/home', routes.home);
 app.get('/main', routes.main);
+app.get('/edit', routes.edit);
 
 
 // catch 404 and forward to error handler
