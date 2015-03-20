@@ -16,57 +16,114 @@
                     <li><a href="#">题目</a></li>
                 </ul>
             </div>
-            <div class="g-doc">
-                <form onsubmit="return false;" id="basic" class="m-form">
-                    <div class="fmgroup">
-                        <fieldset>
-                            <table>
-                                <tr class="nick">
-                                    <th>题库名称</th>
-                                    <td>
-                                        <input class="u-ipt n-ipt" type="text" name="nick">
-                                    </td>
-                                </tr>
-                                <tr class="nick">
-                                    <th>题库描述</th>
-                                    <td>
-                                        <input class="u-ipt n-ipt" type="text" name="nick">
-                                    </td>
-                                </tr>
-                                <tr class="nick">
-                                    <th>题库类型</th>
-                                    <td>
-                                        <select name="level">
-                                            <option value="2">语文</option>
-                                            <option value="0">数学</option>
-                                            <option value="3">外语</option>
-                                            <option value="1">日语</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </fieldset>
-                    </div>
-                    <div class="fmgroup">
-                        <fieldset>
-                            <table>
-                                <tr>
-                                    <th></th>
-                                    <td>
-                                        <div class="btnarea">
-                                            <button id="submit" type="submit" class="u-btn">添加题目</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </fieldset>
-                    </div>
-                </form>
-                <div id="questions" style="display: none">hello</div>
-            </div>
+            <div class="g-doc" id ="app"></div>        
         </div>
     </div>
 </div>
+
+<script id="main" type="text/regular" name="main">
+    <form onsubmit="return false;" id="basic" class="m-form">
+        <div class="fmgroup">
+            <table>
+                <tr class="nick">
+                    <th>题库名称</th>
+                    <td>
+                        <input class="u-ipt" type="text" name="nick" r-model={questions.basic.name}>
+                    </td>
+                </tr>
+                 <tr class="nick">
+                    <th>题库描述</th>
+                    <td>
+                        <textarea class="u-ipt" type="text" name="nick"  r-model={questions.basic.desc}></textarea> 
+                    </td>
+                </tr>
+                <tr class="nick">
+                    <th>题库类别</th>
+                    <td>
+                        <select name="level"  r-model={questions.basic.type}>
+                            <option value="0">语文</option>
+                            <option value="1">数学</option>
+                            <option value="2">外语</option>
+                            <option value="3">日语</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="fmgroup">
+            <table>
+                <tr>
+                    <th></th>
+                    <td>
+                        <div class="btnarea">
+                            <button id="submit" type="submit" class="u-btn">添加题目</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <div id="questions"  class="m-questions" style="display: none">
+        <div class="g-mn2">
+            <div class="g-mnc2">
+                <div id="basic" class="m-form">
+                    <div class="fmgroup">
+                        <legend>题目信息</legend>
+                        <table>
+                            <tr class="nick">
+                                <th>题目名称</th>
+                                <td>
+                                    <input class="u-ipt" type="text" name="nick" r-model = {questions.question[index].title}>
+                                </td>
+                            </tr>
+                            <tr class="nick">
+                                <th>题目类别</th>
+                                <td>
+                                    <input type="radio" value="0" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>单选
+                                    <input type="radio" value="1" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>多选
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="fmgroup">
+                        <legend>题目选项(在正确的选项上打勾)</legend>
+                        {#if questions.question[index].type==0}
+                            <table>
+                                {#list questions.question[index].answer as cell}
+                                    <tr>
+                                        <th>选项<input type="radio" name="correct"  value ="1" r-model={cell.correct}></th>
+                                        <td>
+                                            <input class="u-ipt" type="text" r-model = {cell.name}>
+                                        </td>
+                                    </tr>
+                                 {/list}   
+                            </table>
+                        {#else}
+                             <table>
+                                {#list questions.question[index].answer as cell}
+                                    <tr>
+                                        <th>选项<input type="checkbox"  value ="1" r-model={cell.correct}></th>
+                                        <td>
+                                            <input class="u-ipt" type="text" r-model = {cell.name}>
+                                        </td>
+                                    </tr>
+                                 {/list}   
+                            </table>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="g-sd2 rightBar">
+                <div class="title">题目列表</div>
+                <ul>
+                    {#list questions.question as item}
+                    <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}></li>
+                    {/list}
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
 <script src="<%=jsRoot%>teacher/edit.js"></script>

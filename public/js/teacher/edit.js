@@ -1,22 +1,52 @@
 NEJ.define([
 	'util/tab/tab',
 	'base/element',
-    '{pro}base/util.js'
-  ],function(tab,e,du){
-  		var page;
+    '{pro}base/util.js',
+    '{pro}base/regular.js'
+  ],function(tab,e,du,regular){
+  		var page,
+            emptyAnswer =[{name:"我是选项",correct:1}];
   		page ={
   			__init:function(){
+                this.__initData();
+                this.__initTemplate();
   				this.__initNode();
-  				this.__initData();
   				this.__initTab();
   			},
   			__initNode:function(){
   				this.__basic = e._$get("basic");
   				this.__questions = e._$get('questions');
+                
   			},
   			__initData:function(){
-
+                this.__data ={
+                    basic:{
+                        name:'终极必杀考试题',
+                        desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
+                        type:1
+                    },
+                    question:[
+                        {qid:1,title:'这题正确答案是A',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:0}]},
+                        {qid:1,title:'这题正确答案是2',type:0,answer:[{name:"我是1选项",correct:0},{name:"我是2选项",correct:1},{name:"我是3选项",correct:0}]},
+                        {qid:1,title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}]},
+                    ]
+                }
+                this.__index = 0;
   			},
+            __initTemplate:function(){
+                var appRegular = Regular.extend({
+                  template: '#main'
+                });
+
+                // initialize component then $inject to #app's  bottom
+                var component = new appRegular({
+                    data: {questions:this.__data,index:this.__index},
+                    changeTag:function(index){
+                        this.data.questions.question[index].answer = emptyAnswer;
+                    }
+                });
+                component.$inject('#app'); 
+            },
   			/**
   			 * 初始化tab控件
   			 * @return {void} 

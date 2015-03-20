@@ -1,7 +1,10 @@
 html,body{width:100%;height:100%;}
 html{overflow-y:scroll;}
 .g-bd{position:relative;min-height:100%;}
-.g-bd .g-sd{position:absolute;left:0;top:0;width:200px;margin-right:-200px;height:100%;}
-.g-bd .g-mn{float:right;width:100%;}
-.g-bd .g-mn .g-mnc{margin-left:200px;min-width:600px;}
-.g-doc{padding:10px 30px;}
+.g-sd{position:absolute;left:0;top:0;width:200px;margin-right:-200px;height:100%;}
+.g-mn{float:right;width:100%;}
+.g-mn .g-mnc{margin-left:200px;min-width:600px;}
+.g-sd2{position:absolute;right:0;top:0;width:210px;margin-left:-210px;height:100%;}
+.g-mn2{float:left;width:100%;}
+.g-mn2 .g-mnc2{margin-right:210px;min-width:200px;}
+.g-doc{padding:0 30px;}
