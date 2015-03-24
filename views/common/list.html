@@ -1,0 +1,14 @@
+<!-- @TEMPLATE -->
+<textarea name="jst" id="jst-list" style="display: none">
+{list beg..end as y}
+{var x=xlist[y]}
+<li class="item">
+ 	<div class="col col-p2">删除 修改 </div>
+    <div class="col col-p1">${x.question.length}</div>
+    <div class="col col-p2">${x.createtime}</div>
+    <div class="col col-p2">${x.basic.type}</div>
+    <div class="col col-at">${x.basic.name}</div>
+</li>
+{/list}
+</textarea>
+<!-- /@TEMPLATE -->

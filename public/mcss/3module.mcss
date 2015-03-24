@@ -1,42 +1,106 @@
 @abstract '_config.mcss';
-/* 导航 */
-.m-nav{
-    background:#fff;
-    border-right: 1px solid $bd0;
-    .tt{
-      height: 68px;
-      background-color: blue;
+
+.m-app{
+    background: #fff;
+    border: solid 1px #ddd;
+    padding: 20px;
+}
+/*头部*/
+.m-header{
+    z-index:1;
+    height:100px;
+    position:relative;
+    background-color:#fff;
+    border-bottom:1px solid #ccc;
+    zoom:1;
+    @extend clearfix;
+    .person{
+        float:right;
+        display:inline;
+        font-size:14px;
+        padding:45px 0 0;
+        zoom:1;
+        @extend clearfix;
+        .item{
+            padding:0 8px;
+            float:left;
+        }
     }
-    .nav{
-        li{
-            line-height: 48px;
-            font-size: $fs3;
-            &.z-crt{
-                background-color: $bg6;
-                color: $fc4;
-            }
+    .userinfo{
+        display:inline-block;
+        vertical-align:baseline;
+        zoom:1;
+        *display:inline;
+        *vertical-align:auto;
+        a{
+            color:#00b589;
+        }
+        .sep{
+            display:inline-block;
+            margin:0 10px;
         }
     }
 }
+/*logo*/
+.m-logo{
+    float:left;
+    padding:10px 30px 0;
+    a{
+        display:block;
+        width:250px;
+        height:55px;
+        padding:25px 0 0 90px;
+        color:#00b58a;
+        line-height:30px;
+        font-size:22px;
+        background:url("/images/logo.png") no-repeat;
+
+    }
+}
+
+/* 导航 */
+.m-nav{
+    padding-left:0px;
+    li{
+        list-style-type:none;
+        position:relative;
+        a{
+            background-color:#383838;
+            color:#95a0aa;
+            font-size:16px;
+            display:block;
+            padding-left:30px;
+            padding-right:20px;
+            height:54px;
+            line-height:54px;  
+            &:hover{background-color:#303030;color:#f6f6f6;}
+            &:active{background-color:#404040;};    
+        }
+        .u-sep{
+            position:absolute;
+            right:10px;
+            font-weight:bold;
+            font-size:20px;
+        }
+        &.z-cur a{
+            color:#00b589;
+            cursor:default;
+            background-color:#f1f1f1;
+        }
+    }
+}
+
 /*列表*/
 .m-list{
+    width: 920px;
     $color1 = #ccc;
     /* 分列 */
-    .col{position:relative;float:right;padding:0 10px;min-height:10px;}/* 默认右浮动，注意结构顺序相反 */
+    .col{position:relative;float:right;padding:0 10px;min-height:10px;text-align: center;}/* 默认右浮动，注意结构顺序相反 */
     .col-lt{float:left;}/* 位于自适应列左侧的列 */
     .col-at{float:none;overflow:hidden;}/* 自适应列，结构放在最后 */
-    .col-w1{width:100px;}/* 适用于带选择的用户头像 */
-    .col-w2{width:55px;}/* 适用于单个操作 */
-    .col-w3{width:175px;}/* 适用于很长时间、备注名 */
-    .col-w4{width:80px;}/* 适用于时间、状态or略大的操作 */
-    .col-w5{width:110px;}/* 适用于较多操作 */
-    .col-w6{width:90px;}/* 适用于较长时间 */
-    .col-w7{width:75px;}/* 适用于头像*/
-    .col-w8{width:150px;}/* 适用于分组 */
-    .col-w9{width:220px;}/* 适用于较长的备注 */
-    .col-w10{width:30px;}/* 适用于极小列 */
-    .col-w11{width: 160px;}
-    .col-w12{width:120px;}
+    .col-p1{width: 10%;}
+    .col-p2{width: 20%;}
+    .col-p3{width: 30%;}
     /* 列表表头 */
     .head{
         overflow:hidden;border-top:1px solid $color1;margin:0 0 10px;
@@ -60,6 +124,7 @@
           color:#999;font-size:18px;margin-right:10px;
           &:hover{color:#333;}
         }
+        li:nth-child(2n+1){background:#f6f6f6;}
     }
 }
 /* 分页 */
@@ -110,7 +175,6 @@ div.m-page{
 }
 /*二级菜单*/
 .m-subnav{
-    padding-top: 10px;
     height: 57px;
     border-bottom: 1px solid $bd0;
     ul{float:left;margin-left: 20px;}
@@ -174,10 +238,6 @@ div.m-page{
   .sms a.z-disabled,.sms a.z-disabled:hover {
     color: #999;
     cursor: default;
-  }
-  /* 验证图片 */
-  .ccaptcha {
-    img{vertical-align: middle;}
   }
 }
 

@@ -228,7 +228,22 @@ define([
         options.type = 'error';
         return p.showMessage(options);
     };
-   
+    /**
+    * 列表模块中显示加载中状态
+    * @param  {Object} 事件信息
+    * @return {Void}
+    */
+    p.showListLoading = function(event) {
+        event.value = '<div class="u-load">数据加载中<span class="loadicon"></span></div>';
+    };
+    /**
+     * 列表模块中显示提示信息
+     * @param  {Object} 事件信息
+     * @return {Void}
+     */
+    p.showListMessage = function(msg, event) {
+        event.value = '<div class="u-msg2">' + msg + '</div>';
+    };
     /**
      * clone一个对象
      * @param  {Object} obj 要clone的对象

@@ -1,12 +1,12 @@
-define([
+NEJ.define([
 	'util/tab/tab',
 	'base/element',
-  '{pro}base/util.js',
-  '{pro}base/regular.js',
+    '{pro}base/util.js',
+    '{pro}base/regular.js'
   ],function(tab,e,du,regular){
   		var page,
-            emptyAnswer =[{name:"我是选项",correct:1}],
-            emptyQuestion = {title:'输入题目名称',type:0,answer:emptyAnswer};
+          emptyAnswer =[{name:"我是选项",correct:1}],
+          emptyQuestion = {title:'输入题目名称',type:0,answer:emptyAnswer};
 
   		page ={
   			__init:function(){
