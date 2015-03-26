@@ -1,11 +1,15 @@
 define([
 	'base/element',
+	'base/util',
 	'{pro}base/util.js',
 	'{pro}base/regular.js',
-  ],function(e,du,regular){
+  ],function(e,u,du,regular){
 		var page,
-			emptyAnswer =[{name:"我是选项",correct:1}],
-			emptyQuestion = {title:'输入题目名称',type:0,answer:emptyAnswer,result:[0]};
+			emptyAnswer ={name:""},
+			emptyQuestion = [
+				{title:'',answer:[emptyAnswer],result:0,type:0},
+				{title:'',answer:[emptyAnswer],type:1,result:[true]}
+			];
 
 		page ={
 			__init:function(){
@@ -26,16 +30,16 @@ define([
 							type:1
 						},
 						question:[
-							{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:0}],result:[1,0,0]},
-							{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项",correct:0},{name:"我是2选项",correct:1},{name:"我是3选项",correct:0}],result:[0,0,1]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]},
-							{title:'这题正确答案是3',type:0,answer:[{name:"我是1选项",correct:1},{name:"我是2选项",correct:0},{name:"我是3选项",correct:1},{name:"我是4选项a",correct:0}],result:[1,0,1,0]}
+							{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
+							{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
 						]
 					};
 					this.__oldData = du.clone(this.__data);
@@ -48,7 +52,7 @@ define([
 							desc:'',
 							type:0
 						},
-						question:[emptyQuestion]
+						question:[du.clone(emptyQuestion[0])]
 					}
 					this.__isNew = true;
 				}	
@@ -67,13 +71,20 @@ define([
 					   return du.transType(value);
 					}).filter('transAlphabet', function( value ){
 					   return du.transAlphabet(value);
-					}).filter('transResult',function(array){
-						var str ="";
-						array.forEach(function(element,index,arr){
-							if(element==1)
-							str += du.transAlphabet(index+1)+"、";
-						});
+					}).filter('transResult',function(value){
+						// 单选传入int 多选传数组
+						if(u._$isNumber(value)===true){
+							return du.transAlphabet(value)
+						}else{
+							var str ="";
+							value.forEach(function(element,index,arr){
+								if(element===true){
+									str += du.transAlphabet(index)+"、";
+								}
+							});
 						return str.slice(0,-1);
+
+						}
 					}
 				)
 				
@@ -106,34 +117,66 @@ define([
 						this.data.questions = that.__data;
 						this.data.edit = false;
 					},
+					saveBank:function(){
+						var self = this;
+						var cb = function(){
+							du.showSuccess("保存成功");
+							if(that.__isNew === true){
+								setTimeout(function(){location.href="/qBank"},3000)
+							}else{
+								self.data.edit = false;
+								self.data.index =0;
+								self.data.tab = 0;
+							}
+							
+						}
+						that.__validate(this.data.questions,cb)
+					},
 					// 切换单选多选
 					changeTag:function(index){
-						this.data.questions.question[index].answer = du.clone(emptyAnswer);
+						var data =	this.data.questions.question[index],
+							type = data.type;
+						data.answer = [du.clone(emptyAnswer)];
+						if(type === "0"){
+							this.data.questions.question[index].result = 0;
+						}else{
+							this.data.questions.question[index].result=[true];
+						}
+						
 					},
 					//增删问题选项
 					addAnswer:function(index){
-						if(this.data.questions.question[index].answer.length>8){
+						var data = this.data.questions.question[index];
+						if(data.answer.length>8){
 							du.showError("最多添加8个选项");
 							return;
 						}
-						this.data.questions.question[index].answer.push(du.clone(emptyAnswer));
+						data.answer.push(du.clone(emptyAnswer));
+						if(data.type === "1"){
+							data.result.push(false);
+						}
 					},
 					rmAnswer:function(index,offset){
-						if(this.data.questions.question[index].answer.length<2){
+						var data = this.data.questions.question[index];
+						if(data.answer.length<2){
 							du.showError("至少添加一个选项");
 							return;
 						}
-						this.data.questions.question[index].answer.splice(offset,1);
+						data.answer.splice(offset,1);
+						if(data.type === "1"){
+							data.result.splice(offset,1);
+						}
 					},
 					// 增删问题
 					addQuestion:function(){
-					  this.data.questions.question.push(du.clone(emptyQuestion));
-					  this.data.index =  this.data.questions.question.length-1;
+
+						this.data.questions.question.push(du.clone(emptyQuestion[0]));
+						this.data.index =  this.data.questions.question.length-1;
 					},
 					delQuestion:function(index){
 						var total = this.data.questions.question.length;
 						if(total == 1){
-							this.data.questions.question[0] = du.clone(emptyQuestion);
+							this.data.questions.question[0] = du.clone(emptyQuestion[0]);
 						}else{
 							if(index +1 == total){
 								this.data.index --;
@@ -144,6 +187,53 @@ define([
 					}
 				});
 				component.$inject('#app'); 
+			},
+			__validate:function(data,cb){
+				var basic = data.basic,
+					questions = data.question;
+				if(basic.name.trim() ===""){
+					du.showError("题库名不能为空");
+					return;
+				}
+				if(basic.desc.trim()===""){
+					du.showError("题库描述不能为空");
+					return;
+				}
+				try{
+					questions.forEach(function(element,index,arr){
+						var result = element.result,
+							answer = element.answer;
+						if(element.title.trim()===""){
+							du.showError("第"+(index+1)+"题名称不能为空");
+							throw BreakException;
+						}
+						try{
+							answer.forEach(function(ele,offset,array){
+								if(ele.name.trim()===""){
+									du.showError("第"+(index+1)+"题"+"第"+(offset+1)+"选项名称不能为空");
+									throw BreakException;
+								}
+							})
+						}catch(e){
+							throw BreakException;
+						}
+						if(u._$isArray(result)===true){
+							for (var i = result.length - 1; i >= 0; i--) {
+								if(result[i]===true){
+									break;
+								}
+							};
+							if(i < 0){
+								du.showError("第"+(index+1)+"题"+"选项答案不能为空");
+								throw BreakException;
+							}
+						}
+						
+					})
+				}catch(e){
+					return;
+				}
+				cb();
 			}
 		}   
 	page.__init();

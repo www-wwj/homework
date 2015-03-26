@@ -25,13 +25,13 @@
         {#if isNew ===false}
             <a class="u-btn j-edit edit" r-class={{'f-dn':edit ===true}} on-click={this.editBank()}>编辑</a>
             <a class="u-btn j-cancel edit edit-2" r-class={{'f-dn':edit ===false}} on-click={this.cancelEditBank()}>取消</a>
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}}>保存</a>
+            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
             
         {#else}
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}}>保存</a>
+            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
         {/if}
     </div>
-     {#if edit === true}
+    {#if edit === true}
         <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
             <div class="fmgroup">
                 <table>
@@ -63,16 +63,9 @@
                 </table>
             </div>
             <div class="fmgroup">
-                <table>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <div class="btnarea">
-                                <button id="submit" type="submit" class="u-btn">添加题目</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div class="btnarea">
+                    <a class="u-btn" href="/qBank">返回</a>
+                </div>
             </div>
         </div>
         <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
@@ -105,9 +98,9 @@
                                         <tr>
                                             <th>选项{cell_index|transAlphabet}</th>
                                             <td>
-                                                <input type="radio" name="radio" value ="1" r-model={cell.correct}>
+                                                <input type="radio" name="radio" value="{cell_index}" r-model={questions.question[index].result}>
                                                 <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a on-click = {this.rmAnswer(index,cell_index)}>删除</a>
+                                                <a class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
                                             </td>
                                         </tr>
                                      {/list}   
@@ -118,9 +111,9 @@
                                         <tr>
                                             <th>选项{cell_index|transAlphabet}</th>
                                             <td>
-                                                <input type="checkbox" name="checkbox-{cell_index}" value ="1" r-model={cell.correct}>
+                                                <input type="checkbox" name="checkbox-{cell_index}"  r-model={questions.question[index].result[cell_index]}>
                                                 <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a on-click = {this.rmAnswer(index,cell_index)}>删除</a>
+                                                <a  class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
                                             </td>
                                         </tr>
                                      {/list}   
@@ -166,6 +159,11 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div class="fmgroup">
+                <div class="btnarea">
+                    <a class="u-btn" href="/qBank">返回</a>
+                </div>
             </div>
         </div>    
         <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>

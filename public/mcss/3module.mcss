@@ -235,6 +235,16 @@ div.m-page{
     margin-left: 30px;
     background-color: $bd0;
   }
+  .del{
+    display: inline-block;
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    background: url("/images/ico-tip.png") no-repeat;
+    background-position: 0px -42px;
+    background-size: 100%;
+  }
   
 }
 
