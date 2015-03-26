@@ -18,7 +18,7 @@
                         <li><a href="#">题&nbsp;&nbsp;&nbsp;&nbsp;目</a></li>
                     </ul>
                 </div>
-                <div class="g-doc" id ="app"></div>
+                <div id ="app"></div>
             </div>  
         </div>
     </div>
@@ -43,10 +43,12 @@
                     <th>题库类别</th>
                     <td>
                         <select name="level"  r-model={questions.basic.type}>
-                            <option value="0">语文</option>
-                            <option value="1">数学</option>
-                            <option value="2">外语</option>
-                            <option value="3">日语</option>
+                            <option value="0">数学</option>
+                            <option value="1">英语</option>
+                            <option value="2">体育</option>
+                            <option value="3">物理</option>
+                            <option value="4">计算机</option>
+                            <option value="5">其他</option>
                         </select>
                     </td>
                 </tr>
@@ -104,7 +106,7 @@
                              <table>
                                 {#list questions.question[index].answer as cell}
                                     <tr>
-                                        <th>选项<input type="checkbox" name="checkbox-{cell_index}" value ="1" r-model={cell.correct}></th>
+                                        <th>选项<input type="checkbox" name="checkbox" value ="1" r-model={cell.correct}></th>
                                         <td>
                                             <input class="u-ipt" type="text" r-model = {cell.name}><a on-click = {this.rmAnswer(index,cell_index)}>删除</a>
                                         </td>

@@ -92,7 +92,8 @@
 
 /*列表*/
 .m-list{
-    width: 920px;
+    width: 100%;
+    min-width: 500px;
     $color1 = #ccc;
     /* 分列 */
     .col{position:relative;float:right;padding:0 10px;min-height:10px;text-align: center;}/* 默认右浮动，注意结构顺序相反 */
@@ -124,7 +125,7 @@
           color:#999;font-size:18px;margin-right:10px;
           &:hover{color:#333;}
         }
-        li:nth-child(2n+1){background:#f6f6f6;}
+        div:nth-child(2n+1) li{background:#f6f6f6;}
     }
 }
 /* 分页 */
@@ -198,17 +199,19 @@ div.m-page{
           &:hover{cursor:default;}
         }
     }
+    .edit{float: right;margin: 13px 20px 0 0;}
+    .edit-2{margin-right: 2px;}
 }
 /* 表单 */
 .m-form{
   /* 表单中的区分块 */
+  font-family: "arial";
   .fmgroup{
-      padding:40px 0 20px 26px;border-top:4px solid $bd0;
+      padding:40px 0 20px 26px;border-top:2px solid $bd0;
       &:first-child{border-top:0;}
   }
   fieldset{margin:0 0 20px;padding:1px 0 0;}
   legend{padding:0 0 20px;font-weight: bold;line-height:18px;}
-  .supply{margin: -43px 0 20px 175px;line-height: 2;}
   table{width:100%;}
   th, td{padding:6px 0;}
   th{width: 176px;line-height: 30px;vertical-align: top;}
@@ -225,45 +228,78 @@ div.m-page{
   }
   .iptwrap-upload{padding-top:4px;}
   .iptarea{float:left;width:270px;}
+  .add{
+    display: inline-block;
+    border: 1px dashed $bd1;
+    padding: 2px 10px;
+    margin-left: 30px;
+    background-color: $bd0;
+  }
   
-  .sms .u-ipt {
-    float: left;
-  }
-
-  .sms .tip {
-    float: left;
-    line-height: 16px;
-  }
-
-  .sms a.z-disabled,.sms a.z-disabled:hover {
-    color: #999;
-    cursor: default;
-  }
 }
 
 /*题目模块*/
 .m-questions{
     @extend clearfix;
     .rightBar{
-        border-left: 1px solid $bd0;
+        border: 1px solid $bd0;
+        border-top: none;
+        padding-bottom: 30px;
         .title{
             width: 100%;
-            height: 68px;
-            background-color: #cd113d;
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            text-align: center;
+            border-bottom: 1px solid $bd0;
         }
         ul{
-            margin-top: 20px;
-            margin-left: 6px;
+            @extend clearfix;
+            padding-top: 10px;
+            width: 100%;
+            margin: auto;
+            li{
+                float: left;
+                margin-left: 5px;
+                margin-bottom: 5px;
+            }
         }
         .box{
             display: inline-block;
             width: 30px;
             height: 30px;
-            background-color: red;
+            border: 1px solid $bd0;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
             &.crt{
-              background-color: blue;
+                cursor: default;
+                color: #fff;
+                background: #78d0c2;
+                border-color: #78d0c2;
             }
 
+        }
+        .operate{
+           width: 100%;
+           margin-top: 10px; 
+           text-align: center;
+           .btn{
+            margin-top :5px;
+           }
+        }
+    }
+    .view{
+        padding: 20px;
+        h2{font-size: 24px;line-height: 40px;font-family: "arial"}
+        p{font-size: 16px;line-height: 30px;font-family: "arial"}
+        .cell{text-indent: 18px;}
+        .answer{margin-top:20px;}
+        .btns{
+            margin-top: 20px;text-align: center;
+            a{margin-left: 10px;}
         }
     }
 }

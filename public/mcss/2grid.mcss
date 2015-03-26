@@ -34,17 +34,16 @@ html,body{width:100%;height:100%;}
 	position:absolute;
 	right:0;
 	top:0;
-	width:210px;
-	margin-left:-210px;
-	border: 1px solid #ddd;
+	width:190px;
+	margin-left:-190px;
 }
 .g-mn2{
 	float:left;
 	width:100%;
 	position: relative;
 	.g-mnc2{
-		margin-right:210px;
-		min-width: 200px;
+		margin-right:200px;
+		min-width: 180px;
 	}
 }
 .g-doc{

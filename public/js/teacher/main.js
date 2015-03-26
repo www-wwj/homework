@@ -9,8 +9,9 @@ define([
     'base/event',
     'util/template/jst',
     'ui/item/list',
-    'util/list/page'
-    ], function(NEJ, cache, pg, du, u, e, v, jst, ui, listpg) {
+    'util/list/page',
+    '{pro}widget/tableView.js'
+    ], function(NEJ, cache, pg, du, u, e, v, jst, ui, listpg,di) {
 
     // 页面对象.
    
@@ -27,10 +28,12 @@ define([
             var opt = {
                 limit: 4,
                 parent: du.get('list', c),
-                item:'jst-list',
+                item: {
+                    klass: di._$$listItem,
+
+                },
                 cache: {
-                    key: 'qId',
-                    lkey: 'question',
+                    lkey: 'id',
                     klass: cache._$$questionsCache
                 },
                 pager: {
@@ -45,9 +48,13 @@ define([
                 },
                 onerror: du.showListError,
                 onbeforelistload: du.showListLoading,
+                ondelete: this.__onDelete._$bind(this),
                 onemptylist: du.showListMessage._$bind(null, '暂无题库')
             };
             this.__listModule = listpg._$$ListModulePG._$allocate(opt);
+        },
+        __onDelete:function(event){
+            this.__listModule._$delete(event);
         }
     };
     v._$addEvent(

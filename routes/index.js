@@ -36,6 +36,9 @@ router.doMapping = function(req,res){
 		  		case '/add':
 		  			teacher.addPage(req,res);
 		  			break;
+	  			case '/edit':
+		  			teacher.editPage(req,res);
+		  			break;
 	  			case '/rest/teacher/questionsList':
 	  				teacher.getList(req,res);
 					break;
@@ -90,12 +93,7 @@ router.doMapping = function(req,res){
 	}
 
 }
-// router.index = function(req, res){
-// 	res.redirect('/login');
-// };
-// router.login = function(req, res){
-// 	res.render('login', { title: '用户登陆'});
-// };
+
 router.doLogin = function(req, res){
 	// console.log("----");
 	// var db = require("db");
@@ -125,20 +123,5 @@ router.doLogin = function(req, res){
 	}
 };
 
-// router.home = function(req, res){
-// 	var username = req.session.username;
-// 	console.log('bbb',req.session);
-// 	console.log('bbb',username);
-// res.render('home', { title: 'Home',username: username});
-// };
-// router.main = function(req, res){
-// 	res.render('teacher/main', { userType: 1,pageName:'bank'});
-// };
-// router.edit = function(req, res){
-// 	teacher.edit(req,res)
-// 	// res.render('teacher/edit', { userType: 1,pageName:'bank'});
-// };
-// router.composition = function(req, res){
-// 	res.render('teacher/composition', { userType: 1,pageName:'bank'});
-// };
+
 module.exports = router;

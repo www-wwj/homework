@@ -397,54 +397,51 @@ define([
   
     /**
      * REST异步请求
-     * @param {String} str 被匹配字符串
      */
     
     p._$requestByREST = function(url, options){
-        var tokenName = p.tokenName; 
-        // options.result = {headers:tokenName};
-        // options.headers = options.headers || {};
-        // options.headers["YX-st"] = globals[tokenName];
-        options.timeout = options.timeout || 10000;
-        // HOOK下onload增加onend回调.
-        var fld = options.onload;
-        options.onload = function(data) {
-            if(data&&data.code ==401){
-                p.showError(data.message||'会话已过期，请重新登录');
-                setTimeout(function(){ location.reload();},2000);         
-                return;
-            }
-            fld ? fld.apply(this, arguments) : 0;
-            options.onend ? options.onend.call(this, arguments) : 0;
-        };
-        if(!options.onerror){
-            options.onerror = function(data){
-                if(!!data && data.message){
-                    if(~data.message.indexOf('超时')){
-                        p.showError('请求超时！');
-                    }else{
-                        p.showError(data.message);
-                    }
-                }else{
-                    p.showError('网络异常，请检查后再试');
-                }
-            };
-        }
-        // HOOK下onerror增加onend回调.
-        var fer = options.onerror;
-        options.onerror = function() {
-            fer ? fer.apply(this, arguments) : 0;
-            options.onend ? options.onend.call(this, arguments) : 0;
-        };          
-        // var oldLoad = options.onload;
-
-        // options.onload = function(json){
-        //     if(json && json.headers && json.headers[tokenName]) globals[tokenName] = json.headers[tokenName];
-        //     oldLoad.apply(this, arguments);
-        // }
         return j._$request(url, options);
     };
-        
+    /**
+     * 题录试卷类型转化
+     * @param  {int} type 
+     * @return {String}      转化后的名称
+     */
+    p.transType = function(type){
+        var str;
+        switch(type){
+            case 0:
+                str = "数学";
+                break;
+            case 1:
+                str = "英语";
+                break;
+            case 2:
+                str = "体育";
+                break;
+            case 3:
+                str = "物理";
+                break;
+            case 4:
+                str ="计算机";
+                break;
+            default:
+                str ="其他";           
+        }
+        return str;
+    };  
+    /**
+     * 题目序列号转化
+     * @param  {int} type 
+     * @return {String}      转化后的名称
+     */
+    p.transAlphabet = function(value){
+        var s = "A".charCodeAt() - "0".charCodeAt();
+        if (u._$isNumber(value)){
+            value = value.toString();
+        } 
+        return  String.fromCharCode(value.charCodeAt()+ s);
+    };
 
     /**
      * 时间对象的格式化;
