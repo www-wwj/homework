@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>题目列表啦</title>
+  <title>试卷列表</title>
   <% include ../common/css.html %>
 </head>
 <body>
@@ -11,9 +11,9 @@
     <% include ../common/nav.html %>
     <div class="g-mn">
         <div class="g-mnc">
-            <div class="g-doc">
+            <div class="g-doc m-app">
                 <div class="m-status">
-                   <a class="u-btn" href="/add">新增题库</a>
+                   <a class="u-btn" href="/addPaper">新增试卷</a>
                 </div>
                 <div class="m-list f-mgT" id="container"> 
                   <div class="head">
@@ -35,6 +35,6 @@
 <% include ../common/list.html %>
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/main.js"></script>
+<script src="<%=jsRoot%>teacher/paper.js"></script>
 </body>
 </html>

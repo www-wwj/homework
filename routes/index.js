@@ -27,11 +27,17 @@ router.doMapping = function(req,res){
 	}else{
 		if(userType === 1){
 			switch(path){
+				case '/login':
+					res.redirect('/main');
+					break;
 				case '/main':
 			  		teacher.mainPage(req,res);
 				  	break;
 			  	case '/qBank':
 			  		teacher.bankPage(req,res);
+			  		break;
+		  		case '/paper':
+			  		teacher.paperPage(req,res);
 			  		break;
 		  		case '/add':
 		  			teacher.addPage(req,res);
@@ -39,8 +45,17 @@ router.doMapping = function(req,res){
 	  			case '/edit':
 		  			teacher.editPage(req,res);
 		  			break;
+	  			case '/addPaper':
+		  			teacher.addPaperPage(req,res);
+		  			break;
+	  			case '/viewPaper':
+		  			teacher.viewPaperPage(req,res);
+		  			break;
 	  			case '/rest/teacher/questionsList':
 	  				teacher.getList(req,res);
+					break;
+				case '/rest/teacher/paperList':
+	  				teacher.getPaperList(req,res);
 					break;
 				default:
 			  		res.render('error');
@@ -48,6 +63,9 @@ router.doMapping = function(req,res){
 		}
 		if(userType === 0){
 			switch(path){
+				case '/login':
+					res.redirect('/main');
+					break;
 				case '/main':
 			  		admin.mainPage(req,res);
 				  	break;
@@ -69,7 +87,10 @@ router.doMapping = function(req,res){
 		}
 		if(userType === 2){
 			switch(path){
-				case '/main':
+				case '/login':
+					res.redirect('/main');
+					break;
+				case 'main':
 			  		student.mainPage(req,res);
 				  	break;
 			  	case '/test':

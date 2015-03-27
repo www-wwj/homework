@@ -36,14 +36,26 @@ var testData = {"total":5,"code":200,"list":[
 app.bankPage = function(req,res){
 	res.render('teacher/main',{pageName:"qBank",userType:1,username:req.session.username});
 }
+app.paperPage = function(req,res){
+    res.render('teacher/paper',{pageName:"paper",userType:1,username:req.session.username});
+}
 app.getList = function(req,res){
 	res.send({"message":"","result":testData})
+}
+app.getPaperList = function(req,res){
+    res.send({"message":"","result":testData})
 }
 app.addPage =function(req,res){
 	res.render('teacher/edit', { userType: 1,pageName:'qBank',userType:1,username:req.session.username});
 }
+app.addPaperPage =function(req,res){
+    res.render('teacher/addPaper', { userType: 1,pageName:'paper',userType:1,username:req.session.username});
+}
 app.editPage =function(req,res){
     res.render('teacher/edit', { userType: 1,pageName:'qBank',userType:1,username:req.session.username});
+}
+app.viewPaperPage =function(req,res){
+    res.render('teacher/viewPaper', { userType: 1,pageName:'paper',userType:1,username:req.session.username});
 }
 
 app.mainPage = function(req,res){

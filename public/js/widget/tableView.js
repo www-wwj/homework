@@ -35,8 +35,13 @@ define([
 		});
 		this.__body.innerHTML= node;
 		var deleteBtn = du.get('del',this.__body);
+		var modifyBtn = du.get('modify',this.__body);
 		if(!!deleteBtn){
 			v._$addEvent(deleteBtn, 'click', this.__onClickDelete._$bind(this));
+
+		}
+		if(!!modifyBtn){
+			v._$addEvent(modifyBtn, 'click', this.__onUpdate._$bind(this));
 
 		}
 	};
@@ -46,7 +51,7 @@ define([
 	 * @return {Void}
 	 */
     pro.__onClickDelete = function(event) {
-        if (window.confirm("确定删除此消息？")) {
+        if (window.confirm("确定删除？")) {
             this.__onDelete();
         }
 	};

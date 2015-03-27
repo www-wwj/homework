@@ -33,6 +33,9 @@ app.post('/login',routes.doLogin);
 app.delete('/rest/teacher/bankDelete', function (req, res) {
   res.send({"message":"lala","result":true});
 });
+app.delete('/rest/teacher/paperDelete', function (req, res) {
+  res.send({"message":"lala","result":true});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

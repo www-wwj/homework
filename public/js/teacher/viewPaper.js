@@ -20,41 +20,26 @@ define([
 				
 			},
 			__initData:function(){
-				if(location.pathname.indexOf('edit')!== -1){
-					this.__edit = false;
-					this.__data ={
-						basic:{
-							name:'终极必杀考试题',
-							desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
-							type:1
-						},
-						question:[
-							{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
-							{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
-						]
-					};
-					this.__oldData = du.clone(this.__data);
-					this.__isNew = false;
-				}else{
-					this.__edit = true;
-					this.__data ={
-						basic:{
-							name:'',
-							desc:'',
-							type:0
-						},
-						question:[du.clone(emptyQuestion[0])]
-					}
-					this.__isNew = true;
-				}	
+				this.__edit = false;
+				this.__data ={
+					basic:{
+						name:'终极必杀考试题',
+						desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
+						type:1
+					},
+					question:[
+						{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
+						{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
+					]
+				};
 				this.__index = 0;
 			},
 			__initTemplate:function(){
@@ -104,7 +89,6 @@ define([
 						index:this.__index,
 						edit:this.__edit,
 						tab:0,
-						isNew:this.__isNew,
 					},
 					//编辑题库操作
 					editBank:function(){
@@ -187,53 +171,53 @@ define([
 				});
 				component.$inject('#app'); 
 			},
-			__validate:function(data,cb){
-				var basic = data.basic,
-					questions = data.question;
-				if(basic.name.trim() ===""){
-					du.showError("题库名不能为空");
-					return;
-				}
-				if(basic.desc.trim()===""){
-					du.showError("题库描述不能为空");
-					return;
-				}
-				try{
-					questions.forEach(function(element,index,arr){
-						var result = element.result,
-							answer = element.answer;
-						if(element.title.trim()===""){
-							du.showError("第"+(index+1)+"题名称不能为空");
-							throw BreakException;
-						}
-						try{
-							answer.forEach(function(ele,offset,array){
-								if(ele.name.trim()===""){
-									du.showError("第"+(index+1)+"题"+"第"+(offset+1)+"选项名称不能为空");
-									throw BreakException;
-								}
-							})
-						}catch(e){
-							throw BreakException;
-						}
-						if(u._$isArray(result)===true){
-							for (var i = result.length - 1; i >= 0; i--) {
-								if(result[i]===true){
-									break;
-								}
-							};
-							if(i < 0){
-								du.showError("第"+(index+1)+"题"+"选项答案不能为空");
-								throw BreakException;
-							}
-						}
+			// __validate:function(data,cb){
+			// 	var basic = data.basic,
+			// 		questions = data.question;
+			// 	if(basic.name.trim() ===""){
+			// 		du.showError("题库名不能为空");
+			// 		return;
+			// 	}
+			// 	if(basic.desc.trim()===""){
+			// 		du.showError("题库描述不能为空");
+			// 		return;
+			// 	}
+			// 	try{
+			// 		questions.forEach(function(element,index,arr){
+			// 			var result = element.result,
+			// 				answer = element.answer;
+			// 			if(element.title.trim()===""){
+			// 				du.showError("第"+(index+1)+"题名称不能为空");
+			// 				throw BreakException;
+			// 			}
+			// 			try{
+			// 				answer.forEach(function(ele,offset,array){
+			// 					if(ele.name.trim()===""){
+			// 						du.showError("第"+(index+1)+"题"+"第"+(offset+1)+"选项名称不能为空");
+			// 						throw BreakException;
+			// 					}
+			// 				})
+			// 			}catch(e){
+			// 				throw BreakException;
+			// 			}
+			// 			if(u._$isArray(result)===true){
+			// 				for (var i = result.length - 1; i >= 0; i--) {
+			// 					if(result[i]===true){
+			// 						break;
+			// 					}
+			// 				};
+			// 				if(i < 0){
+			// 					du.showError("第"+(index+1)+"题"+"选项答案不能为空");
+			// 					throw BreakException;
+			// 				}
+			// 			}
 						
-					})
-				}catch(e){
-					return;
-				}
-				cb();
-			}
+			// 		})
+			// 	}catch(e){
+			// 		return;
+			// 	}
+			// 	cb();
+			// }
 		}   
 	page.__init();
 });

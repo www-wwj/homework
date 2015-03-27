@@ -1,0 +1,85 @@
+<% include ../common/config.html %>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>查看试卷</title>
+  <% include ../common/css.html %>
+</head>
+<body>
+<% include ../common/head.html %>
+<div class="g-bd">
+    <% include ../common/nav.html %>  
+    <div class="g-mn">
+        <div class="g-mnc"> 
+            <div class ="m-app" id ="app">
+            </div>  
+        </div>
+    </div>
+</div>
+<script id="main" type="text/regular">
+    <div class="m-subnav">
+        <ul id = "tab">
+            <li r-class={{'z-crt':tab ===0}}><a on-click ={tab = 0}>基本信息</a></li>
+            <li r-class={{'z-crt':tab ===1}}><a on-click ={tab = 1}>题&nbsp;&nbsp;&nbsp;&nbsp;目</a></li>
+        </ul>
+    </div>
+    <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
+        <div class="fmgroup">
+            <table>
+                <tr class="nick">
+                    <th>试卷名称</th>
+                    <td>
+                        {questions.basic.name}
+                    </td>
+                </tr>
+                 <tr class="nick">
+                    <th>试卷描述</th>
+                    <td>
+                       {questions.basic.desc} 
+                    </td>
+                </tr>
+                <tr class="nick">
+                    <th>试卷类别</th>
+                    <td>
+                        {questions.basic.type|transType}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="fmgroup">
+            <div class="btnarea">
+                <a class="u-btn" href="/paper">返回</a>
+            </div>
+        </div>
+    </div>    
+    <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
+        <div class="g-mn2">
+            <div class="g-mnc2">
+                <div id="basic" class="view">
+                    <h2>{index+1}.&nbsp;{questions.question[index].title}</h2>
+                    {#list questions.question[index].answer as cell}
+                        <p class="cell">{cell_index|transAlphabet}.&nbsp;{cell.name}</p>
+                     {/list} 
+                    <p class="answer">正确答案：&nbsp;{questions.question[index].result|transResult}</p>
+                    <p class="btns">
+                    {#if index>0}<a class="u-btn" on-click = {index = index -1}>上一题</a>{/if}
+                    {#if index < questions.question.length -1}<a class="u-btn" on-click = {index = index + 1}>下一题</a>{/if}
+                    </p>
+                </div>
+            </div>
+            <div class="g-sd2 rightBar">
+                <div class="title">题目列表</div>
+                <ul>
+                    {#list questions.question as item}
+                    <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
+                    {/list}
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- @DEFINE -->
+<script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
+<script src="<%=jsRoot%>teacher/viewPaper.js"></script>
+</body>
+</html>

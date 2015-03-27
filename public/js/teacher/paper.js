@@ -1,17 +1,16 @@
 
 define([
     'base/global',
-    '{pro}cache/questions.js',
+    '{pro}cache/paper.js',
     '{lib}ui/pager/pager.js',
     '{pro}base/util.js',
-    'base/util',
     'base/element',
     'base/event',
     'util/template/jst',
     'ui/item/list',
     'util/list/page',
     '{pro}widget/tableView.js'
-    ], function(NEJ, cache, pg, du, u, e, v, jst, ui, listpg,di) {
+    ], function(NEJ, cache, pg, du,e, v, jst, ui, listpg,di) {
 
     // 页面对象.
    
@@ -34,7 +33,7 @@ define([
                 },
                 cache: {
                     lkey: 'id',
-                    klass: cache._$$questionsCache
+                    klass: cache._$$paperCache
                 },
                 pager: {
                     klass: pg._$$Pager,
@@ -50,16 +49,17 @@ define([
                 onbeforelistload: du.showListLoading,
                 ondelete: this.__onDelete._$bind(this),
                 onupdate:this.__onUpdate._$bind(this),
-                onemptylist: du.showListMessage._$bind(null, '暂无题库')
+                onemptylist: du.showListMessage._$bind(null, '暂无试卷')
             };
             this.__listModule = listpg._$$ListModulePG._$allocate(opt);
         },
         __onDelete:function(event){
             this.__listModule._$delete(event);
         },
-        __onUpdate:function(event){
-            location.href ="/edit?id="+event.id;
+         __onUpdate:function(event){
+            location.href ="/viewPaper?id="+event.id;
         }
+
     };
     v._$addEvent(
         document,'templateready',

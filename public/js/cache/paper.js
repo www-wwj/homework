@@ -4,8 +4,8 @@ define([
     '{pro}base/util.js',
 ], function(k,cache,du,p) {
 
-    p._$$questionsCache = k._$klass();
-    var pro = p._$$questionsCache._$extend(cache._$$baseCache);
+    p._$$paperCache = k._$klass();
+    var pro = p._$$paperCache._$extend(cache._$$baseCache);
 
     pro.__init = function(options){
         this.__super(options);
@@ -17,7 +17,7 @@ define([
         data={
             page:options.offset/options.limit+1
         };
-        du._$requestByREST("/rest/teacher/questionsList", {
+        du._$requestByREST("/rest/teacher/paperList", {
             type:"json",
             method:"get",
             data: data,
@@ -32,7 +32,7 @@ define([
      * @return {Void}
      */
     pro._$delete = function(data) {
-        du._$requestByREST('/rest/teacher/bankDelete', {
+        du._$requestByREST('/rest/teacher/paperDelete', {
             method: 'DELETE',
             param: {
                 'id': data.id

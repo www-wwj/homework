@@ -41,7 +41,7 @@ define([
      * @param  {String} clazz 类名
      * @return {String}       名称
      */
-    p.classToName = function(clazz) {
+    p.classToName = function(cutlazz) {
         return clazz.substr && clazz.substr(2);
     };
 
@@ -493,6 +493,8 @@ define([
         }
     };
 
+
+
     /**
      * String对象扩展
      */
@@ -511,5 +513,8 @@ define([
         }
         return newArr;
     }
+    //拷贝NEJ util的方法
+    p.extend(p,u);
+
     return p;
 });
