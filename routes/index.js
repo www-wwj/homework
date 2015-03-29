@@ -58,7 +58,7 @@ router.doMapping = function(req,res){
 	  				teacher.getPaperList(req,res);
 					break;
 				default:
-			  		res.render('error');
+			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}
 		}
 		if(userType === 0){
@@ -82,7 +82,7 @@ router.doMapping = function(req,res){
 	  				admin.getList(req,res);
 					break;
 				default:
-			  		res.render('error');
+			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}
 		}
 		if(userType === 2){
@@ -90,7 +90,7 @@ router.doMapping = function(req,res){
 				case '/login':
 					res.redirect('/main');
 					break;
-				case 'main':
+				case '/main':
 			  		student.mainPage(req,res);
 				  	break;
 			  	case '/test':
@@ -107,7 +107,7 @@ router.doMapping = function(req,res){
 					break;
 
 				default:
-			  		res.render('error');
+			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}
 		}
 		

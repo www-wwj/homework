@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>修改题库</title>
+  <title>新增试卷</title>
   <% include ../common/css.html %>
 </head>
 <body>
@@ -17,40 +17,26 @@
     </div>
 </div>
 <script id="main" type="text/regular">
-    <div class="m-subnav">
-        <ul id = "tab">
-            <li r-class={{'z-crt':tab ===0}}><a on-click ={tab = 0}>基本信息</a></li>
-            <li r-class={{'z-crt':tab ===1}}><a on-click ={tab = 1}>题&nbsp;&nbsp;&nbsp;&nbsp;目</a></li>
-        </ul>
-        {#if isNew ===false}
-            <a class="u-btn j-edit edit" r-class={{'f-dn':edit ===true}} on-click={this.editBank()}>编辑</a>
-            <a class="u-btn j-cancel edit edit-2" r-class={{'f-dn':edit ===false}} on-click={this.cancelEditBank()}>取消</a>
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
-            
-        {#else}
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
-        {/if}
-    </div>
-    {#if edit === true}
-        <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
+        <div id="basic" class="m-form">
             <div class="fmgroup">
                 <table>
-                    <tr class="nick">
-                        <th>题库名称</th>
+                    <tr>
+                        <th>试卷名称</th>
                         <td>
-                            <input class="u-ipt" type="text" name="nick" r-model={questions.basic.name}>
+                            <input class="u-ipt" type="text" name="nick" r-model={name}>
                         </td>
                     </tr>
-                     <tr class="nick">
-                        <th>题库描述</th>
+                     <tr>
+                        <th>试卷描述</th>
                         <td>
-                            <textarea class="u-ipt" type="text" name="nick"  r-model={questions.basic.desc}></textarea> 
+                            <textarea class="u-ipt" type="text" name="nick"  r-model={desc}></textarea> 
                         </td>
                     </tr>
-                    <tr class="nick">
-                        <th>题库类别</th>
+                    <tr>
+                        <th>试卷类别</th>
                         <td>
-                            <select name="level"  r-model={questions.basic.type}>
+                            <select r-model={type} on-change={this.changeType()}>
+                                <option value="-1">请选择</option>
                                 <option value="0">{0|transType}</option>
                                 <option value="1">{1|transType}</option>
                                 <option value="2">{2|transType}</option>
@@ -60,141 +46,75 @@
                             </select>
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div class="fmgroup">
-                <div class="btnarea">
-                    <a class="u-btn" href="/qBank">返回</a>
-                </div>
-            </div>
-        </div>
-        <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
-            <div class="g-mn2">
-                <div class="g-mnc2">
-                    <div id="basic" class="m-form">
-                        <div class="fmgroup">
-                            <legend>题目信息</legend>
-                            <table>
-                                <tr class="nick">
-                                    <th>题目名称</th>
-                                    <td>
-                                        <input class="u-ipt" type="text" name="nick" r-model = {questions.question[index].title}>
-                                    </td>
-                                </tr>
-                                <tr class="nick">
-                                    <th>题目类别</th>
-                                    <td>
-                                        <input type="radio" value="0" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>单选
-                                        <input type="radio" value="1" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>多选
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="fmgroup">
-                            <legend>题目选项(在正确的选项上打勾)<a class="add" on-click = {this.addAnswer(index)} >加选项</a></legend> 
-                            {#if questions.question[index].type==0}
-                                <table>
-                                    {#list questions.question[index].answer as cell}
-                                        <tr>
-                                            <th>选项{cell_index|transAlphabet}</th>
-                                            <td>
-                                                <input type="radio" name="radio" value="{cell_index}" r-model={questions.question[index].result}>
-                                                <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
-                                            </td>
-                                        </tr>
-                                     {/list}   
-                                </table>
+                    <tr>
+                        <th>考试时间</th>
+                        <td>
+                            <select r-model ={time}>
+                                <option value="30">30</option>
+                                <option value="30">45</option>
+                                <option value="60">60</option>
+                                <option value="90">90</option>
+                                <option value="120">120</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><a class="u-btn u-btn-s1" {#if type!=-1}on-click={show = 1}{/if} r-class={{"u-btn-dis":type==-1}}>添加题库</a></th>
+                        <td>
+                            {#if selectBank.length ==0}
+                                <span>未选择题库</span>
                             {#else}
-                                 <table>
-                                    {#list questions.question[index].answer as cell}
-                                        <tr>
-                                            <th>选项{cell_index|transAlphabet}</th>
-                                            <td>
-                                                <input type="checkbox" name="checkbox-{cell_index}"  r-model={questions.question[index].result[cell_index]}>
-                                                <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a  class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
-                                            </td>
-                                        </tr>
-                                     {/list}   
-                                </table>
+                                {#list selectBank as x}
+                                    <span>{x.basic.name}</span>
+                                {/list}
                             {/if}
-                        </div>
-                    </div>
-                </div>
-                <div class="g-sd2 rightBar">
-                    <div class="title">题目列表</div>
-                    <ul>
-                        {#list questions.question as item}
-                            <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
-                        {/list}
-                    </ul>
-                    <div class="operate">
-                        <a class="u-btn u-btn-sw btn " on-click = {this.addQuestion()}>添加题目</a>
-                        <a class="u-btn u-btn-sw btn" on-click = {this.delQuestion(index)}>删除题目</a>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    {#else}
-        <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
-            <div class="fmgroup">
-                <table>
-                    <tr class="nick">
-                        <th>题库名称</th>
-                        <td>
-                            {questions.basic.name}
                         </td>
                     </tr>
-                     <tr class="nick">
-                        <th>题库描述</th>
+                     <tr>
+                    <th>题目数量（0～{max}）</th>
                         <td>
-                           {questions.basic.desc} 
-                        </td>
-                    </tr>
-                    <tr class="nick">
-                        <th>题库类别</th>
-                        <td>
-                            {questions.basic.type|transType}
+                            <input class="u-ipt u-ipt-1" type="text" r-model={total} r-class={{"u-ipt-err":total>max}}>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="fmgroup">
                 <div class="btnarea">
-                    <a class="u-btn" href="/qBank">返回</a>
-                </div>
-            </div>
-        </div>    
-        <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
-            <div class="g-mn2">
-                <div class="g-mnc2">
-                    <div id="basic" class="view">
-                        <h2>{index+1}.&nbsp;{questions.question[index].title}</h2>
-                        {#list questions.question[index].answer as cell}
-                            <p class="cell">{cell_index|transAlphabet}.&nbsp;{cell.name}</p>
-                         {/list} 
-                        <p class="answer">正确答案：&nbsp;{questions.question[index].result|transResult}</p>
-                        <p class="btns">
-                        {#if index>0}<a class="u-btn" on-click = {index = index -1}>上一题</a>{/if}
-                        {#if index < questions.question.length -1}<a class="u-btn" on-click = {index = index + 1}>下一题</a>{/if}
-                        </p>
-                    </div>
-                </div>
-                <div class="g-sd2 rightBar">
-                    <div class="title">题目列表</div>
-                    <ul>
-                        {#list questions.question as item}
-                        <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
-                        {/list}
-                    </ul>
+                    <a class="u-btn" href="/paper">保存</a>
+                    <a class="u-btn" href="/paper">返回</a>        
                 </div>
             </div>
         </div>
-    {/if}
+        <div class="m-layer" r-class={{'f-dn':show ===0}}>
+        <table><tbody><tr><td>
+            <article class="lywrap">
+                <header class="lytt"><h2 class="u-tt">选择题库</h2><span class="lyclose" on-click ={show = 0 }>×</span></header>
+                <section class="lyct">
+                    {#list bank as cell}
+                        {#if cell.basic.type == type}
+                            <p>
+                                <input type="checkbox" r-model={select[cell_index]} on-click={this.addBank(select[cell_index],cell)}>
+                                {cell.basic.name}
+                            </p>
+                        {/if}
+                    {/list}
+                </section>
+                <footer class="lybt">
+                    <div class="lyother">
+                        <p>(￣ c￣)y▂ξ</p>
+                    </div>
+                    <div class="lybtns">
+                        <button type="button" class="u-btn" on-click ={this.saveBank()}>确定</button>
+                        <button type="button" class="u-btn u-btn-c4" on-click ={show = 0 }>取消</button>
+                    </div>
+                </footer>
+            </article>
+        </td></tr></tbody></table>
+</div>
+
 </script>
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/edit.js"></script>
+<script src="<%=jsRoot%>teacher/addPaper.js"></script>
 </body>
 </html>

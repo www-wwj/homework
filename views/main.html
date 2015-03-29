@@ -11,19 +11,38 @@
     <% include ./common/nav.html %>
     <div class="g-mn">
         <div class="g-mnc">
-            <div class="g-doc m-app">
-				我知道对有什么不对
-				我知道将军说的话不一定对
-				我知道对或错我自己能分辨
-				请你安静点 请你安静点
-				我知道对有什么不对
-				我知道外国的月亮没比较圆
-				我知道 yo yo yo
-				不是我的语言
-				请你安静点 请你安静点
+            <div class="g-doc m-app" id="container">
+			
             </div>
         </div>
     </div>
 </div>
+<script src="<%=jsRoot%>lib/highcharts.js"></script>
+<script type="text/javascript">
+  chart1 = new Highcharts.Chart({
+         chart: {
+            renderTo: 'container',
+            type: 'bar'
+         },
+         title: {
+            text: 'Fruit Consumption'
+         },
+         xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+         },
+         yAxis: {
+            title: {
+               text: 'Fruit eaten'
+            }
+         },
+         series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+         }, {
+            name: 'John',
+            data: [5, 7, 3]
+         }]
+      });
+</script>
 </body>
 </html>
