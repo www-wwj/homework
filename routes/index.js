@@ -120,10 +120,13 @@ router.doLogin = function(req, res){
 		username: req.body.username,
 		password: req.body.password
 	}
-	db.create(function(err, cnt){
-		db.login(cnt, info,function(err,data){
+	db.connect(function(err){
+		if(err){
+			console.logo(err)
+			return;
+		}
+		db.login(info,function(err,data){
 			if(data.length>0){
-				console.log(data[0])
 				req.session.username = data[0].name; 
 				req.session.userType = data[0].type; 
 				req.session.uid = data[0].id;
