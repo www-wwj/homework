@@ -38,19 +38,19 @@
                     <tr class="nick">
                         <th>题库名称</th>
                         <td>
-                            <input class="u-ipt" type="text" name="nick" r-model={questions.basic.name}>
+                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
                         </td>
                     </tr>
                      <tr class="nick">
                         <th>题库描述</th>
                         <td>
-                            <textarea class="u-ipt" type="text" name="nick"  r-model={questions.basic.desc}></textarea> 
+                            <textarea class="u-ipt" type="text" name="nick"  r-model={questions.desc}></textarea> 
                         </td>
                     </tr>
                     <tr class="nick">
                         <th>题库类别</th>
                         <td>
-                            <select name="level"  r-model={questions.basic.type}>
+                            <select name="level"  r-model={questions.type}>
                                 <option value="0">{0|transType}</option>
                                 <option value="1">{1|transType}</option>
                                 <option value="2">{2|transType}</option>
@@ -143,19 +143,19 @@
                     <tr class="nick">
                         <th>题库名称</th>
                         <td>
-                            {questions.basic.name}
+                            {questions.name}
                         </td>
                     </tr>
                      <tr class="nick">
                         <th>题库描述</th>
                         <td>
-                           {questions.basic.desc} 
+                           {questions.desc} 
                         </td>
                     </tr>
                     <tr class="nick">
                         <th>题库类别</th>
                         <td>
-                            {questions.basic.type|transType}
+                            {questions.type|transType}
                         </td>
                     </tr>
                 </table>

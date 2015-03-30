@@ -27,12 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', routes.doMapping);
 
 app.post('/login',routes.doLogin);
-// app.get('/rest/get',function(req,res){
-//     res.send({data:req.query.asd })
-// })
-app.delete('/rest/teacher/bankDelete', function (req, res) {
-  res.send({"message":"lala","result":true});
-});
+app.post('/rest/teacher/addBank',routes.addBank);
+app.post('/rest/teacher/editBank',routes.editBank);
+
+app.delete('/rest/teacher/bankDelete', routes.deleteBank);
 app.delete('/rest/teacher/paperDelete', function (req, res) {
   res.send({"message":"lala","result":true});
 });

@@ -3,10 +3,10 @@
 
 <li class="item">
  	<div class="col col-p2"><a class="j-modify">查看</a>&nbsp;&nbsp;<a  class="j-del">删除</a> </div>
-    <div class="col col-p1">${question.length}</div>
+    <div class="col col-p1">${question|getTotal}</div>
     <div class="col col-p2">${createtime|transTime}</div>
-    <div class="col col-p2">${basic.type|transType}</div>
-    <div class="col col-at">${basic.name}</div>
+    <div class="col col-p2">${type|transType}</div>
+    <div class="col col-at">${name}</div>
 </li>
 
 </textarea>

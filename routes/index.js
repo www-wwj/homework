@@ -57,6 +57,9 @@ router.doMapping = function(req,res){
 				case '/rest/teacher/paperList':
 	  				teacher.getPaperList(req,res);
 					break;
+				case '/rest/teacher/getBank':
+	  				teacher.getBank(req,res);
+					break;
 				default:
 			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}
@@ -137,6 +140,16 @@ router.doLogin = function(req, res){
 		});
 	});	
 };
+
+router.addBank = function(req, res){
+	teacher.addBank(req,res);
+};
+router.editBank = function(req, res){
+	teacher.editBank(req,res);
+};
+router.deleteBank = function(req,res){
+	teacher.deleteBank(req,res);
+}
 
 
 module.exports = router;

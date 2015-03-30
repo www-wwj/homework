@@ -302,6 +302,27 @@ define([
         node.innerHTML = str || '';
         return node.innerText;
     };
+     /**
+    * 获取id
+    * @param {String} id字段
+    * @return {long}  id
+    */
+    p.getidTag = function(id){
+        var tip =id||"id",
+            _hash=document.location.search,
+            _id=0;
+        if(_hash.length>0){
+            _hash=_hash.substring(1);
+            var _akv=_hash.split("&");
+            for(var i=0,j=_akv.length;i<j;++i){
+                var _kv=_akv[i].split("=");
+                if(_kv.length==2&&_kv[0]==tip){
+                    _id=_kv[1];
+                }
+            }
+        }
+        return _id;
+    };
     
     // 通用验证对象
     p.validator = {

@@ -14,13 +14,9 @@ define([
     pro.__doLoadList = function(options) {
         var callback = options.onload;
         var data = options.data;
-        data={
-            page:options.offset/options.limit+1
-        };
         du._$requestByREST("/rest/teacher/questionsList", {
             type:"json",
             method:"get",
-            data: data,
             onerror : this.__cbLoadList._$bind(this, callback),
             onload: this.__cbLoadList._$bind(this, callback)
         });

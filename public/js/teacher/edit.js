@@ -13,49 +13,65 @@ define([
 		page ={
 			__init:function(){
 				this.__initData();
-				this.__initTemplate();
 				this.__initNode();
 			},
 			__initNode:function(){
 				
 			},
 			__initData:function(){
+				this.__index = 0;
 				if(location.pathname.indexOf('edit')!== -1){
-					this.__edit = false;
-					this.__data ={
-						basic:{
-							name:'终极必杀考试题',
-							desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
-							type:1
-						},
-						question:[
-							{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
-							{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-							{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
-						]
-					};
-					this.__oldData = du.clone(this.__data);
-					this.__isNew = false;
+					du._$requestByREST("/rest/teacher/getBank", {
+			            type:"json",
+			            method:"get",
+			            data: {id:du.getidTag()},
+			            onerror : this.__cbGetData._$bind(this),
+			            onload: this.__cbGetData._$bind(this)
+			        });
 				}else{
 					this.__edit = true;
 					this.__data ={
-						basic:{
-							name:'',
-							desc:'',
-							type:0
-						},
+						name:'',
+						desc:'',
+						type:0,
 						question:[du.clone(emptyQuestion[0])]
 					}
 					this.__isNew = true;
+					this.__initTemplate();
 				}	
-				this.__index = 0;
+				
+			},
+
+			__cbGetData: function(data){
+				if(data.code ===200){
+					this.__edit = false;
+					this.__data = data.data;
+					this.__data.question = JSON.parse(data.data.question)
+					this.__oldData = du.clone(this.__data);
+					this.__isNew = false;
+					this.__initTemplate();
+				}else{
+					du.showError("error")
+				}
+					// this.__data ={
+					// 	id:1,
+					// 	name:'终极必杀考试题',
+					// 	desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
+					// 	type:1,
+					// 	question:[
+					// 		{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
+					// 		{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
+					// 		{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
+					// 	]
+					// };
+				
 			},
 			__initTemplate:function(){
 				var that = this;
@@ -123,9 +139,7 @@ define([
 							if(that.__isNew === true){
 								setTimeout(function(){location.href="/qBank"},3000)
 							}else{
-								self.data.edit = false;
-								self.data.index =0;
-								self.data.tab = 0;
+								setTimeout(function(){location.reload()},3000)
 							}
 							
 						}
@@ -187,8 +201,9 @@ define([
 				});
 				component.$inject('#app'); 
 			},
+			// 数据验证
 			__validate:function(data,cb){
-				var basic = data.basic,
+				var basic = data,
 					questions = data.question;
 				if(basic.name.trim() ===""){
 					du.showError("题库名不能为空");
@@ -216,7 +231,7 @@ define([
 						}catch(e){
 							throw BreakException;
 						}
-						if(u._$isArray(result)===true){
+						if(du._$isArray(result)===true){
 							for (var i = result.length - 1; i >= 0; i--) {
 								if(result[i]===true){
 									break;
@@ -232,9 +247,42 @@ define([
 				}catch(e){
 					return;
 				}
-				cb();
+				this.__doPost(cb);
+			},
+
+			/**
+			 * 提交保存题库请求
+			 * @param  {Function} cb 成功请求后的回调
+			 * @return     
+			 */
+			__doPost:function(cb){
+				if(this.__isNew){
+					du._$requestByREST("/rest/teacher/addBank", {
+			            type:"json",
+			            method:"post",
+			            data: this.__data,
+			            onerror : this.__cbDoPost._$bind(this,cb),
+			            onload: this.__cbDoPost._$bind(this, cb)
+			        });
+				}else{
+					du._$requestByREST("/rest/teacher/editBank", {
+			            type:"json",
+			            method:"post",
+			            data: this.__data,
+			            onerror : this.__cbDoPost._$bind(this,cb),
+			            onload: this.__cbDoPost._$bind(this, cb)
+			        });
+				}
+				
+			},
+			__cbDoPost:function(cb,data){
+				if(data&&data.code ===200){
+					cb();
+				}else{
+					du.showError(data.message||'网络异常')
+				}
 			}
-		}   
+		}  
 	page.__init();
 });
 	
