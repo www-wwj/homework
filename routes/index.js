@@ -3,7 +3,7 @@ var router = express.Router();
 var teacher =require('./teacher/index');
 var admin =require('./admin/index');
 var student =require('./student/index');
-
+var db = require('../db/index');
 
 
 
@@ -116,32 +116,23 @@ router.doMapping = function(req,res){
 }
 
 router.doLogin = function(req, res){
-	// console.log("----");
-	// var db = require("db");
-	// db.create(function(err, cnt){
-	// 	console.log("OKKKK");
-	// 	db.createTable(cnt, function(){
-	// 		console.log("create");
-	// 	});
-	// });
-	if(req.body.username=== "teacher"){
-		req.session.username = "teacher"; 
-		req.session.userType = 1; 
-		console.log('aaa ',req.session)
-		res.redirect('/main');
-	}else if(req.body.username=== "admin"){
-		req.session.username = "admin"; 
-		req.session.userType = 0; 
-		console.log('aaa ',req.session)
-		res.redirect('/main');
-	}else if(req.body.username=== "student"){
-		req.session.username = "student"; 
-		req.session.userType = 2; 
-		console.log('aaa ',req.session)
-		res.redirect('/main');
-	}else{
-		res.render('login', { title: '用户登陆',errors:'error'})
+	var info = {
+		username: req.body.username,
+		password: req.body.password
 	}
+	db.create(function(err, cnt){
+		db.login(cnt, info,function(err,data){
+			if(data.length>0){
+				console.log(data[0])
+				req.session.username = data[0].name; 
+				req.session.userType = data[0].type; 
+				req.session.uid = data[0].id;
+				res.redirect('/main');
+			}else{
+				res.render('login', { title: '用户登陆',errors:'用户名或密码错误'})
+			}
+		});
+	});	
 };
 
 
