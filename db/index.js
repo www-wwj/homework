@@ -33,5 +33,14 @@ module.exports = {
 	},
 	getBankList : function(id,fcb){
 		connect.all("select * from questionbank where uid =?",[id],fcb);
-	}
+	},
+	getPaperList : function(id,fcb){
+		connect.all("select * from paper where uid =?",[id],fcb);
+	},
+	getPaperDetail : function(id,fcb){
+		connect.get("select * from paper where id =?",[id],fcb);
+	},
+	addPaper : function(info,fcb) {
+		connect.run("insert into paper(id, name,type,desc,time,total,uid,uname,createtime,question) VALUES(?,?,?,?,?,?,?,?,?,?)", [null, info.name, info.type,info.desc,info.time,info.total,info.uid,info.uname,info.createtime,info.question], fcb);
+	},
 }

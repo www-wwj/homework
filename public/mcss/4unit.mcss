@@ -9,7 +9,7 @@
 }
 textarea.u-ipt{height:60px;}
 /* 文本输入框-窄 */
-.u-ipt-1{width:30px;}
+.u-ipt-1{width:40px;}
 /* 文本输入框-出错 */
 .u-ipt-err{border-color:#c00 #e00 #e00;}
 /* 文本输入框-宽度自适应 */

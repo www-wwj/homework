@@ -30,10 +30,10 @@ app.post('/login',routes.doLogin);
 app.post('/rest/teacher/addBank',routes.addBank);
 app.post('/rest/teacher/editBank',routes.editBank);
 
+app.post('/rest/teacher/addPaper',routes.addPaper);
+
 app.delete('/rest/teacher/bankDelete', routes.deleteBank);
-app.delete('/rest/teacher/paperDelete', function (req, res) {
-  res.send({"message":"lala","result":true});
-});
+app.delete('/rest/teacher/paperDelete', routes.deletePaper);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

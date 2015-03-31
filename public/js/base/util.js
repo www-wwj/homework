@@ -514,6 +514,28 @@ define([
         }
     };
 
+    //从一个给定的数组arr中,随机返回num个不重复项
+    p.getArrayItems = function(arr, num) {
+        //新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+        var temp_array = [];
+        for (var index in arr) {
+            temp_array.push(arr[index]);
+        }
+        //取出的数值项,保存在此数组
+        var return_array = [];
+        for (var i = 0; i<num; i++) {
+            //判断如果数组还有可以取出的元素,以防下标越界
+            if (temp_array.length>0) {
+                //在数组中产生一个随机索引
+                var arrIndex = Math.floor(Math.random()*temp_array.length);
+                return_array[i] = temp_array[arrIndex];
+                temp_array.splice(arrIndex, 1);
+            } else {
+                break;
+            }
+        }
+        return return_array;
+    };
 
 
     /**

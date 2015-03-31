@@ -1,7 +1,7 @@
 .u-ipt{display:inline-block;*display:inline;*zoom:1;width:248px;padding:9px 10px;height:12px;border:1px solid #ddd;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;font:12px/20px arial,"simsun";color:#666;background:#fff;line-height:1;}
 .u-ipt:focus{border-color:#74b9ef;-webkit-box-shadow:0 0 5px rgba(116,185,239,0.18);box-shadow:0 0 5px rgba(116,185,239,0.18);}
 textarea.u-ipt{height:60px;}
-.u-ipt-1{width:30px;}
+.u-ipt-1{width:40px;}
 .u-ipt-err{border-color:#c00 #e00 #e00;}
 .u-iptwrap{display:block;padding-right:22px;}
 .u-iptwrap .u-ipt{width:100%;margin-right:-22px;}

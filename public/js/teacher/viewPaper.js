@@ -13,34 +13,30 @@ define([
 		page ={
 			__init:function(){
 				this.__initData();
-				this.__initTemplate();
-				this.__initNode();
 			},
 			__initNode:function(){
 				
 			},
 			__initData:function(){
 				this.__edit = false;
-				this.__data ={
-					basic:{
-						name:'终极必杀考试题',
-						desc:'要是能重来 我要选李白，几百年前做的好坏 没那么多人猜',
-						type:1
-					},
-					question:[
-						{title:'这题正确答案是A',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:1},
-						{title:'这题正确答案是2',type:0,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"}],result:2},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]},
-						{title:'这题正确答案是3',type:1,answer:[{name:"我是1选项"},{name:"我是2选项"},{name:"我是3选项"},{name:"我是4选项a"}],result:[true,false,true,false]}
-					]
-				};
 				this.__index = 0;
+				du._$requestByREST("/rest/teacher/getPaper", {
+		            type:"json",
+		            method:"get",
+		            data: {id:du.getidTag()},
+		            onerror : this.__cbGetData._$bind(this),
+		            onload: this.__cbGetData._$bind(this)
+		        });
+			},
+			__cbGetData: function(data){
+				if(data.code ===200){
+					this.__edit = false;
+					this.__data = data.data;
+					this.__data.question = JSON.parse(data.data.question);
+					this.__initTemplate();
+				}else{
+					du.showError("error")
+				}
 			},
 			__initTemplate:function(){
 				var that = this;
@@ -90,31 +86,6 @@ define([
 						edit:this.__edit,
 						tab:0,
 					},
-					//编辑题库操作
-					editBank:function(){
-						this.data.edit = true;
-					},
-					//取消编辑题库操作
-					cancelEditBank:function(){
-						that.__data = du.clone(that.__oldData);
-						this.data.questions = that.__data;
-						this.data.edit = false;
-					},
-					saveBank:function(){
-						var self = this;
-						var cb = function(){
-							du.showSuccess("保存成功");
-							if(that.__isNew === true){
-								setTimeout(function(){location.href="/qBank"},3000)
-							}else{
-								self.data.edit = false;
-								self.data.index =0;
-								self.data.tab = 0;
-							}
-							
-						}
-						that.__validate(this.data.questions,cb)
-					},
 					// 切换单选多选
 					changeTag:function(index){
 						var data =	this.data.questions.question[index],
@@ -126,98 +97,10 @@ define([
 							this.data.questions.question[index].result=[true];
 						}
 						
-					},
-					//增删问题选项
-					addAnswer:function(index){
-						var data = this.data.questions.question[index];
-						if(data.answer.length>8){
-							du.showError("最多添加8个选项");
-							return;
-						}
-						data.answer.push(du.clone(emptyAnswer));
-						if(data.type === "1"){
-							data.result.push(false);
-						}
-					},
-					rmAnswer:function(index,offset){
-						var data = this.data.questions.question[index];
-						if(data.answer.length<2){
-							du.showError("至少添加一个选项");
-							return;
-						}
-						data.answer.splice(offset,1);
-						if(data.type === "1"){
-							data.result.splice(offset,1);
-						}
-					},
-					// 增删问题
-					addQuestion:function(){
-
-						this.data.questions.question.push(du.clone(emptyQuestion[0]));
-						this.data.index =  this.data.questions.question.length-1;
-					},
-					delQuestion:function(index){
-						var total = this.data.questions.question.length;
-						if(total == 1){
-							this.data.questions.question[0] = du.clone(emptyQuestion[0]);
-						}else{
-							if(index +1 == total){
-								this.data.index --;
-							}
-							this.data.questions.question.splice(index,1);
-						}
-							
 					}
 				});
 				component.$inject('#app'); 
-			},
-			// __validate:function(data,cb){
-			// 	var basic = data.basic,
-			// 		questions = data.question;
-			// 	if(basic.name.trim() ===""){
-			// 		du.showError("题库名不能为空");
-			// 		return;
-			// 	}
-			// 	if(basic.desc.trim()===""){
-			// 		du.showError("题库描述不能为空");
-			// 		return;
-			// 	}
-			// 	try{
-			// 		questions.forEach(function(element,index,arr){
-			// 			var result = element.result,
-			// 				answer = element.answer;
-			// 			if(element.title.trim()===""){
-			// 				du.showError("第"+(index+1)+"题名称不能为空");
-			// 				throw BreakException;
-			// 			}
-			// 			try{
-			// 				answer.forEach(function(ele,offset,array){
-			// 					if(ele.name.trim()===""){
-			// 						du.showError("第"+(index+1)+"题"+"第"+(offset+1)+"选项名称不能为空");
-			// 						throw BreakException;
-			// 					}
-			// 				})
-			// 			}catch(e){
-			// 				throw BreakException;
-			// 			}
-			// 			if(u._$isArray(result)===true){
-			// 				for (var i = result.length - 1; i >= 0; i--) {
-			// 					if(result[i]===true){
-			// 						break;
-			// 					}
-			// 				};
-			// 				if(i < 0){
-			// 					du.showError("第"+(index+1)+"题"+"选项答案不能为空");
-			// 					throw BreakException;
-			// 				}
-			// 			}
-						
-			// 		})
-			// 	}catch(e){
-			// 		return;
-			// 	}
-			// 	cb();
-			// }
+			}
 		}   
 	page.__init();
 });

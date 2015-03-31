@@ -36,13 +36,13 @@
                         <th>试卷类别</th>
                         <td>
                             <select r-model={type} on-change={this.changeType()}>
-                                <option value="-1">请选择</option>
-                                <option value="0">{0|transType}</option>
-                                <option value="1">{1|transType}</option>
-                                <option value="2">{2|transType}</option>
-                                <option value="3">{3|transType}</option>
-                                <option value="4">{4|transType}</option>
-                                <option value="5">{5|transType}</option>
+                                <option value=-1>请选择</option>
+                                <option value=0>{0|transType}</option>
+                                <option value=1>{1|transType}</option>
+                                <option value=2>{2|transType}</option>
+                                <option value=3>{3|transType}</option>
+                                <option value=4>{4|transType}</option>
+                                <option value=5>{5|transType}</option>
                             </select>
                         </td>
                     </tr>
@@ -50,11 +50,11 @@
                         <th>考试时间</th>
                         <td>
                             <select r-model ={time}>
-                                <option value="30">30</option>
-                                <option value="30">45</option>
-                                <option value="60">60</option>
-                                <option value="90">90</option>
-                                <option value="120">120</option>
+                                <option value= 30 >30</option>
+                                <option value= 30 >45</option>
+                                <option value= 60 >60</option>
+                                <option value= 90 >90</option>
+                                <option value= 120 >120</option>
                             </select>
                         </td>
                     </tr>
@@ -65,7 +65,7 @@
                                 <span>未选择题库</span>
                             {#else}
                                 {#list selectBank as x}
-                                    <span>{x.basic.name}</span>
+                                    <span>{x.name},</span>
                                 {/list}
                             {/if}
                         </td>
@@ -73,14 +73,14 @@
                      <tr>
                     <th>题目数量（0～{max}）</th>
                         <td>
-                            <input class="u-ipt u-ipt-1" type="text" r-model={total} r-class={{"u-ipt-err":total>max}}>
+                            <input class="u-ipt u-ipt-1" type="number" r-model={total} r-class={{"u-ipt-err":total>max}}>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="fmgroup">
                 <div class="btnarea">
-                    <a class="u-btn" href="/paper">保存</a>
+                    <a class="u-btn" on-click={this.savePaper()}>保存</a>
                     <a class="u-btn" href="/paper">返回</a>        
                 </div>
             </div>
@@ -91,10 +91,10 @@
                 <header class="lytt"><h2 class="u-tt">选择题库</h2><span class="lyclose" on-click ={show = 0 }>×</span></header>
                 <section class="lyct">
                     {#list bank as cell}
-                        {#if cell.basic.type == type}
+                        {#if cell.type == type}
                             <p>
                                 <input type="checkbox" r-model={select[cell_index]} on-click={this.addBank(select[cell_index],cell)}>
-                                {cell.basic.name}
+                                {cell.name}
                             </p>
                         {/if}
                     {/list}

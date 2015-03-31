@@ -60,6 +60,9 @@ router.doMapping = function(req,res){
 				case '/rest/teacher/getBank':
 	  				teacher.getBank(req,res);
 					break;
+				case '/rest/teacher/getPaper':
+	  				teacher.getPaper(req,res);
+					break;
 				default:
 			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}
@@ -150,6 +153,11 @@ router.editBank = function(req, res){
 router.deleteBank = function(req,res){
 	teacher.deleteBank(req,res);
 }
-
+router.addPaper = function(req, res){
+	teacher.addPaper(req,res);
+};
+router.deletePaper = function(req,res){
+	teacher.deletePaper(req,res);
+}
 
 module.exports = router;
