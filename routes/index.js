@@ -108,7 +108,7 @@ router.doMapping = function(req,res){
   				case '/result':
 	  				student.getResult(req,res);
 					break;
-	  			case '/rest/student/userList':
+	  			case '/rest/student/testList':
 	  				student.getList(req,res);
 					break;
 

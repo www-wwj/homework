@@ -13,7 +13,15 @@
         <div class="g-mnc">
             <div class="g-doc m-app">
                 <div class="m-status">
-                   <a class="u-btn" href="/doTest">新增题库</a>
+                    <select id="selectType">
+                        <option value="all">全部</option>
+                        <option value=0>数学</option>
+                        <option value=1>英语</option>
+                        <option value=2>体育</option>
+                        <option value=3>物理</option>
+                        <option value=4>计算机</option>
+                        <option value=5>其他</option>
+                    </select>
                 </div>
                 <div class="m-list f-mgT" id="container"> 
                   <div class="head">
@@ -32,9 +40,21 @@
         </div>
     </div>
 </div>
-<% include ../common/list.html %>
+<!-- @TEMPLATE -->
+<textarea name="jst" id="jst-list" style="display: none">
+
+<li class="item">
+    <div class="col col-p2"><a class="j-modify">查看</a> </div>
+    <div class="col col-p1">${question|getTotal}</div>
+    <div class="col col-p2">${createtime|transTime}</div>
+    <div class="col col-p2">${type|transType}</div>
+    <div class="col col-at">${name}</div>
+</li>
+
+</textarea>
+<!-- /@TEMPLATE -->
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/main.js"></script>
+<script src="<%=jsRoot%>student/main.js"></script>
 </body>
 </html>
