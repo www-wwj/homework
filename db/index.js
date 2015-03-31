@@ -25,7 +25,6 @@ module.exports = {
 		connect.run("update questionbank set name =?,type = ?,desc = ?,createtime = ?,question = ? where id = ?", [info.name, info.type,info.desc,info.createtime,info.question,info.id], fcb);
 	},
 	deleteBank : function(id,fcb) {
-		console.log('aaa',id)
 		connect.run("delete from questionbank where id =?", [id], fcb);
 	},
 	getBankDetail : function(id,fcb){
@@ -43,4 +42,7 @@ module.exports = {
 	addPaper : function(info,fcb) {
 		connect.run("insert into paper(id, name,type,desc,time,total,uid,uname,createtime,question) VALUES(?,?,?,?,?,?,?,?,?,?)", [null, info.name, info.type,info.desc,info.time,info.total,info.uid,info.uname,info.createtime,info.question], fcb);
 	},
+	deletePaper : function(id,fcb) {
+		connect.run("delete from paper where id =?", [id], fcb);
+	}
 }
