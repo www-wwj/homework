@@ -3,12 +3,7 @@ define([
 	'{pro}base/util.js',
 	'{pro}base/regular.js',
   ],function(e,du,regular){
-		var page,
-			emptyAnswer ={name:""},
-			emptyQuestion = [
-				{title:'',answer:[emptyAnswer],result:0,type:0},
-				{title:'',answer:[emptyAnswer],type:1,result:[true]}
-			];
+		var page;
 
 		page ={
 			__init:function(){
@@ -20,7 +15,7 @@ define([
 			__initData:function(){
 				this.__edit = false;
 				this.__index = 0;
-				du._$requestByREST("/rest/teacher/getPaper", {
+				du._$requestByREST("/rest/student/testInfo", {
 		            type:"json",
 		            method:"get",
 		            data: {id:du.getidTag()},
@@ -30,9 +25,20 @@ define([
 			},
 			__cbGetData: function(data){
 				if(data.code ===200){
-					this.__edit = false;
 					this.__data = data.data;
-					this.__data.question = JSON.parse(data.data.question);
+					var questions = JSON.parse(data.data.question);
+					for(var p in questions) {
+						if(questions[p].type === 0){
+							questions[p].reply = -1;
+						}else{
+							questions[p].reply = [];
+							for(var q in questions[p].answer){
+								questions[p].reply.push(false);
+							}
+						}
+					}
+					this.__data.question = questions;
+
 					this.__initTemplate();
 				}else{
 					du.showError("error")
@@ -51,22 +57,7 @@ define([
 					   return du.transType(value);
 					}).filter('transAlphabet', function( value ){
 					   return du.transAlphabet(value);
-					}).filter('transResult',function(value){
-						// 单选传入int 多选传数组
-						if(du._$isNumber(value)===true){
-							return du.transAlphabet(value)
-						}else{
-							var str ="";
-							value.forEach(function(element,index,arr){
-								if(element===true){
-									str += du.transAlphabet(index)+"、";
-								}
-							});
-						return str.slice(0,-1);
-
-						}
-					}
-				)
+					})
 				
 				var appRegular = Regular.extend({
 				  template: '#main'
@@ -83,23 +74,54 @@ define([
 					data: {
 						questions:this.__data,
 						index:this.__index,
-						edit:this.__edit,
-						tab:0,
+						begin:false
 					},
-					// 切换单选多选
-					changeTag:function(index){
-						var data =	this.data.questions.question[index],
-							type = data.type;
-						data.answer = [du.clone(emptyAnswer)];
-						if(type === "0"){
-							this.data.questions.question[index].result = 0;
-						}else{
-							this.data.questions.question[index].result=[true];
+					begin:function(){
+						this.data.begin = true;
+					},
+					end:function(){
+						var array = that.__checkData(this.data.questions),
+							len = array.length,
+							index="";
+						if (len >0){
+							for (var i = 0;i <len; i++) {
+								index += array[i]+",";
+							};
+							index = index.slice(0,-1)+"题未答";
 						}
 						
+
+						if (window.confirm(index +"确定提交试卷？")) {
+				            
+				        }
 					}
 				});
 				component.$inject('#app'); 
+			},
+			__checkData:function(data){
+				var array=[],
+					flag,
+					questions = data.question;
+				for(var p in questions) {
+					if(questions[p].type === 0){
+						if(questions[p].reply === -1){
+							array.push(parseInt(p)+1);
+						}
+					}else{
+						flag = 0;
+						for(var q in questions[p].reply){
+							if(questions[p].reply[q] ===true){
+								flag = 1;
+								break;
+							}
+							
+						}
+						if(flag===0){
+							array.push(parseInt(p)+1);
+						}
+					}
+				}
+				return array;
 			}
 		}   
 	page.__init();

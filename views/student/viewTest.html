@@ -1,0 +1,116 @@
+<% include ../common/config.html %>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>测试</title>
+  <% include ../common/css.html %>
+</head>
+<body>
+<% include ../common/head.html %>
+<div class="g-bd">
+    <% include ../common/nav.html %>  
+    <div class="g-mn">
+        <div class="g-mnc"> 
+            <div class ="m-app">
+                <div id ="app"></div>
+            </div>  
+        </div>
+    </div>
+</div>
+<script id="main" type="text/regular" name="main">
+    <div class="m-subnav">
+        {#if begin ===false}
+            <a class="u-btn" href="/test">返回</a>
+        {#else}
+         <a class="u-btn" on-click={this.end()}>提交</a>
+        {/if}
+    </div>
+    <form onsubmit="return false;" id="basic" class="m-form" r-class={{"f-dn":begin===true}}>
+        <div class="fmgroup">
+             <table>
+                <tr>
+                    <th>试卷名称</th>
+                    <td>
+                        {questions.name}
+                    </td>
+                </tr>
+                 <tr>
+                    <th>试卷描述</th>
+                    <td>
+                       {questions.desc} 
+                    </td>
+                </tr>
+                <tr>
+                    <th>出卷人</th>
+                    <td>
+                        {questions.uname}
+                    </td>
+                </tr>
+                <tr>
+                    <th>考试时间</th>
+                    <td>
+                        {questions.time}
+                    </td>
+                </tr>
+                <tr>
+                    <th>题目数量</th>
+                    <td>
+                        {questions.total}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="fmgroup">
+            <table>
+                <tr>
+                    <th></th>
+                    <td>
+                        <div class="btnarea">
+                            <button id="submit" class="u-btn" on-click={this.begin()}>开始答题</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <div id="questions"  class="m-questions" r-class={{"f-dn":begin===false}}>
+        <div class="g-mn2">
+            <div class="g-mnc2">
+                <div id="basic" class="view">
+                    <h2>{index+1}.&nbsp;{questions.question[index].title}</h2>
+                     {#if questions.question[index].type ==1}
+                        {#list questions.question[index].answer as cell}
+                       
+                        <p class="cell"><input type="checkbox" r-model={questions.question[index].reply[cell_index]}>&nbsp;&nbsp;{cell_index|transAlphabet}.&nbsp;{cell.name}</p>
+                         {/list}
+
+                    {#else}
+                        {#list questions.question[index].answer as cell}
+
+                        <p class="cell"><input type="radio" name="radio" value="{cell_index}" r-model={questions.question[index].reply}>&nbsp;&nbsp;{cell_index|transAlphabet}.&nbsp;{cell.name}</p>
+
+                        {/list}
+                    {/if}
+                     
+                    <p class="btns">
+                    {#if index>0}<a class="u-btn" on-click = {index = index -1}>上一题</a>{/if}
+                    {#if index < questions.question.length -1}<a class="u-btn" on-click = {index = index + 1}>下一题</a>{/if}
+                    </p>
+                </div>
+            </div>
+            <div class="g-sd2 rightBar">
+                <div class="title">题目列表</div>
+                <ul>
+                    {#list questions.question as item}
+                    <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
+                    {/list}
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- @DEFINE -->
+<script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
+<script src="<%=jsRoot%>student/viewTest.js"></script>
+</body>
+</html>

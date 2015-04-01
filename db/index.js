@@ -54,4 +54,7 @@ module.exports = {
 			connect.all("select * from paper where type =?",[type],fcb);
 		}
 	},
+	getTestInfo : function(id,fcb){
+		connect.get("select * from paper where id =?",[id],fcb);
+	},
 }

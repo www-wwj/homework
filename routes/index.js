@@ -102,6 +102,9 @@ router.doMapping = function(req,res){
 			  	case '/test':
 			  		student.listPage(req,res);
 			  		break;
+		  		case '/viewTest':
+	  				student.testPage(req,res);
+					break;
 	  			case '/doTest':
 	  				student.editPage(req,res);
 	  				break;
@@ -111,7 +114,9 @@ router.doMapping = function(req,res){
 	  			case '/rest/student/testList':
 	  				student.getList(req,res);
 					break;
-
+				case '/rest/student/testInfo':
+	  				student.getTestInfo(req,res);
+					break;
 				default:
 			  		res.render('error',{message:"找不到该页",error:{status:404}});
 			}

@@ -91,7 +91,7 @@ div.m-page .search .u-ipt{display:inline-block;width:26px;margin:0 4px;padding:4
 .m-questions .view p{font-size:16px;line-height:30px;font-family:"arial";}
 .m-questions .view .cell{text-indent:18px;}
 .m-questions .view .answer{margin-top:20px;}
-.m-questions .view .btns{margin-top:20px;text-align:center;}
+.m-questions .view .btns{margin-top:50px;}
 .m-questions .view .btns a{margin-left:10px;}
 .m-layer{display:block;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
 .m-layer>table{table-layout:fixed;width:100%;height:100%;}
