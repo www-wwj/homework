@@ -65,8 +65,7 @@ define([
 						return str.slice(0,-1);
 
 						}
-					}
-				)
+					})
 				
 				var appRegular = Regular.extend({
 				  template: '#main'

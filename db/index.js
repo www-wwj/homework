@@ -32,10 +32,10 @@ module.exports = {
 		connect.get("select * from questionbank where id =?",[id],fcb);
 	},
 	getBankList : function(id,fcb){
-		connect.all("select * from questionbank where uid =?",[id],fcb);
+		connect.all("select * from questionbank where uid =? order by id desc",[id],fcb);
 	},
 	getPaperList : function(id,fcb){
-		connect.all("select * from paper where uid =?",[id],fcb);
+		connect.all("select * from paper where uid =? order by id desc",[id],fcb);
 	},
 	getPaperDetail : function(id,fcb){
 		connect.get("select * from paper where id =?",[id],fcb);
@@ -49,12 +49,21 @@ module.exports = {
 	//学生相关
 	getTest : function(type,fcb){
 		if(type==='all'){
-			connect.all("select * from paper",fcb);
+			connect.all("select * from paper order by id desc",fcb);
 		}else{
-			connect.all("select * from paper where type =?",[type],fcb);
+			connect.all("select * from paper where type =? order by id desc",[type],fcb);
 		}
 	},
 	getTestInfo : function(id,fcb){
 		connect.get("select * from paper where id =?",[id],fcb);
+	},
+	addResult : function(info,fcb){
+		connect.run("insert into result(id,name,type,desc,time,total,uid,uname,createtime,question) VALUES(?,?,?,?,?,?,?,?,?,?)", [null, info.name, info.type,info.desc,info.time,info.total,info.uid,info.uname,info.createtime,info.question], fcb);
+	},
+	getResultList : function(id,fcb){
+		connect.all("select * from result where uid =? order by id desc",[id],fcb);
+	},
+	getResultInfo : function(id,uid,fcb){
+		connect.get("select * from result where id =? and uid =?",[id,uid],fcb);
 	},
 }

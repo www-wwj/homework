@@ -12,15 +12,12 @@
     <div class="g-mn">
         <div class="g-mnc">
             <div class="g-doc m-app">
-                <div class="m-status">
-                   <a class="u-btn" href="/add">新增题库</a>
-                </div>
                 <div class="m-list f-mgT" id="container"> 
                   <div class="head">
                     <div class="headwrap">
                         <div class="col col-p2">操作</div>
                         <div class="col col-p1">题目数量</div>
-                        <div class="col col-p2">创建时间</div>
+                        <div class="col col-p2">答题时间</div>
                         <div class="col col-p2">类别</div>
                         <div class="col col-at">名称</div>
                     </div>
@@ -32,9 +29,19 @@
         </div>
     </div>
 </div>
-<% include ../common/list.html %>
+<!-- @TEMPLATE -->
+<textarea name="jst" id="jst-list" style="display: none">
+<li class="item">
+    <div class="col col-p2"><a class="j-modify">查看</a> </div>
+    <div class="col col-p1">${question|getTotal}</div>
+    <div class="col col-p2">${createtime|transTime}</div>
+    <div class="col col-p2">${type|transType}</div>
+    <div class="col col-at">${name}</div>
+</li>
+</textarea>
+<!-- /@TEMPLATE -->
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/main.js"></script>
+<script src="<%=jsRoot%>student/result.js"></script>
 </body>
 </html>

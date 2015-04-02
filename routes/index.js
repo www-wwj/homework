@@ -111,11 +111,20 @@ router.doMapping = function(req,res){
   				case '/result':
 	  				student.getResult(req,res);
 					break;
+				case '/viewResult':
+	  				student.viewResult(req,res);
+					break;
 	  			case '/rest/student/testList':
 	  				student.getList(req,res);
 					break;
 				case '/rest/student/testInfo':
 	  				student.getTestInfo(req,res);
+					break;
+				case '/rest/student/resultList':
+	  				student.getResultList(req,res);
+					break;
+				case '/rest/student/resultInfo':
+	  				student.getResultInfo(req,res);
 					break;
 				default:
 			  		res.render('error',{message:"找不到该页",error:{status:404}});
@@ -164,5 +173,7 @@ router.addPaper = function(req, res){
 router.deletePaper = function(req,res){
 	teacher.deletePaper(req,res);
 }
-
+router.addResult = function(req, res){
+	student.addResult(req,res);
+};
 module.exports = router;

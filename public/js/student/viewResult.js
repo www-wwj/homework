@@ -15,7 +15,7 @@ define([
 			__initData:function(){
 				this.__edit = false;
 				this.__index = 0;
-				du._$requestByREST("/rest/student/testInfo", {
+				du._$requestByREST("/rest/student/resultInfo", {
 		            type:"json",
 		            method:"get",
 		            data: {id:du.getidTag()},
@@ -27,16 +27,6 @@ define([
 				if(data.code ===200){
 					this.__data = data.data;
 					var questions = JSON.parse(data.data.question);
-					for(var p in questions) {
-						if(questions[p].type === 0){
-							questions[p].reply = -1;
-						}else{
-							questions[p].reply = [];
-							for(var q in questions[p].answer){
-								questions[p].reply.push(false);
-							}
-						}
-					}
 					this.__data.question = questions;
 
 					this.__initTemplate();
@@ -57,7 +47,22 @@ define([
 					   return du.transType(value);
 					}).filter('transAlphabet', function( value ){
 					   return du.transAlphabet(value);
+					}).filter('transResult',function(value){
+						// 单选传入int 多选传数组
+						if(du._$isNumber(value)===true){
+							return du.transAlphabet(value)
+						}else{
+							var str ="";
+							value.forEach(function(element,index,arr){
+								if(element===true){
+									str += du.transAlphabet(index)+"、";
+								}
+							});
+						return str.slice(0,-1);
+
+						}
 					})
+
 				
 				var appRegular = Regular.extend({
 				  template: '#main'
@@ -74,7 +79,7 @@ define([
 					data: {
 						questions:this.__data,
 						index:this.__index,
-						begin:false
+						tab:0
 					},
 					begin:function(){
 						this.data.begin = true;
@@ -102,49 +107,7 @@ define([
 					}
 				});
 				component.$inject('#app'); 
-			},
-			__checkData:function(data){
-				var array=[],
-					flag,
-					questions = data.question;
-				for(var p in questions) {
-					if(questions[p].type === 0){
-						if(questions[p].reply === -1){
-							array.push(parseInt(p)+1);
-						}
-					}else{
-						flag = 0;
-						for(var q in questions[p].reply){
-							if(questions[p].reply[q] ===true){
-								flag = 1;
-								break;
-							}
-							
-						}
-						if(flag===0){
-							array.push(parseInt(p)+1);
-						}
-					}
-				}
-				return array;
-			},
-			 __doPost:function(data){
-                du._$requestByREST("/rest/student/addResult", {
-                    type:"json",
-                    method:"post",
-                    data:data,
-                    onerror : this.__cbDoPost._$bind(this),
-                    onload: this.__cbDoPost._$bind(this)
-                });
-            },
-            __cbDoPost:function(data){
-                if(data&&data.code ===200){
-                    du.showSuccess("测试结束");
-                    setTimeout(function(){location.href ="/result";},3000)
-                }else{
-                    du.showError(data.message||'网络异常')
-                }
-            }
+			}
 		}   
 	page.__init();
 });
