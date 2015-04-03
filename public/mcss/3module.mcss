@@ -178,6 +178,7 @@ div.m-page{
 .m-subnav{
     height: 57px;
     border-bottom: 1px solid $bd0;
+    .limit{float: right;line-height: 40px;}
     ul{float:left;margin-left: 20px;}
     li{ 
         position:relative;float:left;

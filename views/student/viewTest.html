@@ -23,6 +23,7 @@
             <a class="u-btn" href="/test">返回</a>
         {#else}
          <a class="u-btn" on-click={this.end()}>提交</a>
+         <span class="limit">剩余时间{limit|transTime}</span>
         {/if}
     </div>
     <form onsubmit="return false;" id="basic" class="m-form" r-class={{"f-dn":begin===true}}>

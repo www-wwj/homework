@@ -19,8 +19,8 @@ app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('Wilson'));
-app.use(session({secret: 'wilson'}));
+app.use(cookieParser('cat'));
+app.use(session({secret: 'cat'}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -38,7 +38,7 @@ define([
 						}
 					}
 					this.__data.question = questions;
-
+					this.__limit = this.__data.time*60;
 					this.__initTemplate();
 				}else{
 					du.showError("error")
@@ -52,11 +52,18 @@ define([
 				 * transType 转化题库类型
 				 * transAlphabet 数字转A B C
 				 * transResult 显示自定义题目答案 
+				 * transTime 剩余时间显示转换
 				 */	
 				Regular.filter('transType', function( value ){
 					   return du.transType(value);
 					}).filter('transAlphabet', function( value ){
 					   return du.transAlphabet(value);
+					}).filter('transTime',function(value){
+						var minute = Math.floor(value/60),
+							second = value % 60;
+						minute = minute>=10 ? minute:'0'+minute;
+						second = second>=10?second:'0'+second;
+						return minute+'分'+ second+'秒';
 					})
 				
 				var appRegular = Regular.extend({
@@ -74,10 +81,22 @@ define([
 					data: {
 						questions:this.__data,
 						index:this.__index,
-						begin:false
+						begin:false,
+						limit:this.__limit
 					},
 					begin:function(){
+						var that = this;
 						this.data.begin = true;
+						var timeInterval = setInterval(function(){
+							if(that.data.limit ===0){
+								clearInterval(timeInterval);
+								that.post();
+							}else{
+								that.data.limit --;
+								component.$update();
+							}
+
+						},1000)
 					},
 					end:function(){
 						var array = that.__checkData(this.data.questions),

@@ -52,6 +52,7 @@ div.m-page >div{-webkit-animation:opacityshow 0.5s;-moz-animation:opacityshow 0.
 div.m-page .search{display:inline-block;margin-left:20px;}
 div.m-page .search .u-ipt{display:inline-block;width:26px;margin:0 4px;padding:4px 4px;vertical-align:middle;height:12px;font-size:12px;text-align:center;}
 .m-subnav{height:57px;border-bottom:1px solid #ddd;}
+.m-subnav .limit{float:right;line-height:40px;}
 .m-subnav ul{float:left;margin-left:20px;}
 .m-subnav li{position:relative;float:left;}
 .m-subnav li a{float:left;line-height:53px;padding:0 20px;text-align:center;background:#fff;color:#666;border-bottom:4px solid #fff;}
