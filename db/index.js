@@ -49,9 +49,9 @@ module.exports = {
 	//学生相关
 	getTest : function(type,fcb){
 		if(type==='all'){
-			connect.all("select * from paper order by id desc",fcb);
+			connect.all("select p.id,p.name,p.type,p.desc,p.time,p.total,p.createtime,p.question,u.name as uname from paper as p left join users as u on p.uid = u.id order by p.id desc",fcb);
 		}else{
-			connect.all("select * from paper where type =? order by id desc",[type],fcb);
+			connect.all("select p.id,p.name,p.type,p.desc,p.time,p.total,p.createtime,p.question,u.name as uname from paper as p left join users as u on p.uid = u.id where p.type =? order by p.id desc",[type],fcb);
 		}
 	},
 	getTestInfo : function(id,fcb){
