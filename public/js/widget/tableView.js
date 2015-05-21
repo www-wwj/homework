@@ -25,9 +25,6 @@ define([
         this.__super();
     };
 	pro.__doRefresh = function(data) {
-		// if(!!data.question){
-		// 	data.question = JSON.parse(data.question);
-		// }
 		var node = jst._$get('jst-list', data, {
 		    transTime: function(time, format) {
 		        return u._$format(time, format || 'yyyy-MM-dd');
