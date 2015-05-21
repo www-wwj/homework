@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>题目列表啦</title>
+  <title>用户管理</title>
   <% include ../common/css.html %>
 </head>
 <body>
@@ -13,16 +13,15 @@
         <div class="g-mnc">
             <div class="g-doc m-app">
                 <div class="m-status">
-                   <a class="u-btn" href="/add">新增题库</a>
+                   <a class="u-btn" href="/add">新增用户</a>
                 </div>
                 <div class="m-list f-mgT" id="container"> 
                   <div class="head">
                     <div class="headwrap">
                         <div class="col col-p2">操作</div>
-                        <div class="col col-p1">题目数量</div>
-                        <div class="col col-p2">创建时间</div>
-                        <div class="col col-p2">类别</div>
-                        <div class="col col-at">名称</div>
+                        <div class="col col-p2">类型</div>
+                        <div class="col col-p2">昵称</div>
+                        <div class="col col-at">用户名</div>
                     </div>
                   </div>
                 <ul class="list j-list">
@@ -32,9 +31,20 @@
         </div>
     </div>
 </div>
-<% include ../common/list.html %>
+<!-- @TEMPLATE -->
+<textarea name="jst" id="jst-list" style="display: none">
+
+<li class="item">
+  <div class="col col-p2"><a class="j-modify">修改</a>&nbsp;&nbsp;<a  class="j-del">删除</a> </div>
+    <div class="col col-p2">${type|getUserType}</div>
+    <div class="col col-p2">${name}</div>
+    <div class="col col-at">${username}</div>
+</li>
+
+</textarea>
+<!-- /@TEMPLATE -->
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/main.js"></script>
+<script src="<%=jsRoot%>admin/main.js"></script>
 </body>
 </html>

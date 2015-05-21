@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>题目列表啦</title>
+  <title>首页</title>
   <% include ./common/css.html %>
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="g-mn">
         <div class="g-mnc">
             <div class="g-doc m-app" id="container">
-			
+
             </div>
         </div>
     </div>
@@ -22,25 +22,25 @@
   chart1 = new Highcharts.Chart({
          chart: {
             renderTo: 'container',
-            type: 'bar'
+            type: 'column'
          },
          title: {
-            text: 'Fruit Consumption'
+            text: '学生答题预览'
          },
          xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            categories: ['1月', '2月', '3月', '4月', '5月', '6月']
          },
          yAxis: {
             title: {
-               text: 'Fruit eaten'
+               text: '答题正确率'
             }
          },
          series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
+            name: '学生最高成绩',
+            data: [6, 8, 7,7,8,9]
          }, {
-            name: 'John',
-            data: [5, 7, 3]
+            name: '学生平均成绩',
+            data: [5, 6, 5,5,7,6]
          }]
       });
 </script>

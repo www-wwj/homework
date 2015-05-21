@@ -3,6 +3,7 @@ var db_path = "db/db.sqlite3";
 var connect;
 module.exports = {
 	connect : function(fcb) {
+		console.log('ssss')
 		if(!connect){
 			connect = new sqlite3.Database(db_path, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, function(err){
 				fcb(err);
@@ -66,4 +67,8 @@ module.exports = {
 	getResultInfo : function(id,uid,fcb){
 		connect.get("select * from result where id =? and uid =?",[id,uid],fcb);
 	},
+	//管理员
+	getUserList :function(fcb){
+		connect.all("select * from users",fcb);
+	}
 }

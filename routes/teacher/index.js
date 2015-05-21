@@ -36,19 +36,13 @@ app.getList = function(req,res){
             console.logo(err)
             return;
         }
-        db.connect(function(err){
-            if(err){
-                console.logo(err)
-                return;
+        db.getBankList(uid,function(err,data){
+            if(data){
+                res.send({"message":"", "result":{"code":200, "total":data.length,"list":data}})
+            }else{
+                res.send({"message":"数据库异常", "result":{"code":500}})
             }
-            db.getBankList(uid,function(err,data){
-                if(data){
-                    res.send({"message":"", "result":{"code":200, "total":data.length,"list":data}})
-                }else{
-                    res.send({"message":"数据库异常", "result":{"code":500}})
-                }
-            });
-        }); 
+        });
     });
 }
 app.addBank = function(req,res){

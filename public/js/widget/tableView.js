@@ -37,6 +37,15 @@ define([
 		    },
 		    getTotal:function(value){
 		    	return JSON.parse(value).length;
+		    },
+		    getUserType:function(value){
+		    	if(value == 0){
+		    		return "管理员"
+		    	}else if(value == 1){
+		    		return "教师"
+		    	}else{
+		    		return "学生"
+		    	}
 		    }
 		});
 		this.__body.innerHTML= node;
