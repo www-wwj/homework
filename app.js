@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', routes.doMapping);
 
 app.post('/login',routes.doLogin);
+app.post('/register',routes.doRegister);
 app.post('/rest/teacher/addBank',routes.addBank);
 app.post('/rest/teacher/editBank',routes.editBank);
 

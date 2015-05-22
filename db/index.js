@@ -19,6 +19,9 @@ module.exports = {
 	login:function(info,fcb){
 		connect.all("select * from users where username =? and password = ?",[info.username,info.password],fcb);
 	},
+	searchUser:function(info,fcb){
+		connect.all("select * from users where username =? ",[info.username],fcb);
+	},
 	//老师相关
 	addBank : function(info,fcb) {
 		connect.run("insert into questionbank(id, name,type,desc,uid,uname,createtime,question) VALUES(?,?,?,?,?,?,?,?)", [null, info.name, info.type,info.desc,info.uid,info.uname,info.createtime,info.question], fcb);

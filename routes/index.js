@@ -22,6 +22,10 @@ router.doMapping = function(req,res){
 		res.render('login', { title: '用户登陆'});
 		return;
 	}
+	if(path === '/register'){
+		res.render('register',{ title: '用户注册' });
+		return;
+	}
 	if(typeof(username) === 'undefined'){
 		res.redirect('/login');
 	}else{
@@ -157,7 +161,29 @@ router.doLogin = function(req, res){
 		});
 	});	
 };
-
+router.doRegister = function(req,res){
+	var info = {
+		username: req.body.username,
+		password: req.body.password,
+		name: req.body.name,
+		type: req.body.type||2
+	}
+	db.connect(function(err){
+		if(err){
+			console.logo(err)
+			return;
+		}
+		db.searchUser(info,function(err,data){
+			if(data){
+				db.addUser(info,function(err,data){
+					res.send({“code”:200,”message”:null})；
+				});
+			}else{
+				res.render('register',{ title: '用户注册',errors:"用户名已存在"});
+			}
+		});
+	});
+};
 router.addBank = function(req, res){
 	teacher.addBank(req,res);
 };
