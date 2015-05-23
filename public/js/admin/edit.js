@@ -17,7 +17,7 @@ define([
 			},
 			__initData:function(){
 				if(location.pathname.indexOf('edit')!== -1){
-					du._$requestByREST("/rest/teacher/getBank", {
+					du._$requestByREST("/rest/registerUser", {
 			            type:"json",
 			            method:"get",
 			            data: {id:du.getidTag()},
@@ -33,12 +33,10 @@ define([
 
 			__cbGetData: function(data){
 				if(data.code ===200){
-					this.__edit = false;
-					this.__data = data.data;
-					this.__data.question = JSON.parse(data.data.question)
-					this.__oldData = du.clone(this.__data);
-					this.__isNew = false;
-					this.__initTemplate();
+					userName = data.userName,
+					userPwd = data.userPwd,
+					nickName = data.nickName,
+					userType = data.userType
 				}else{
 					du.showError("error")
 				}

@@ -77,4 +77,7 @@ module.exports = {
 	getUserList :function(fcb){
 		connect.all("select * from users",fcb);
 	}
+	userInfo :function(id,fcb){
+		connect.get("select * from users where id =?",[id],fcb);
+	}
 }

@@ -79,6 +79,9 @@ router.doMapping = function(req,res){
 				case '/main':
 			  		admin.mainPage(req,res);
 				  	break;
+				case'/registerUser':
+				 	admin.userInfo(req,res);
+				 	break;
 			  	case '/userManage':
 			  		admin.listPage(req,res);
 			  		break;

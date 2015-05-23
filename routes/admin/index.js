@@ -16,6 +16,22 @@ app.editPage =function(req,res){
 app.mainPage = function(req,res){
 	res.render('main',{pageName:"main",userType:0,username:req.session.username});
 }
+app.userInfo = function(req,res){
+    var id = req.query.id;
+    db.connect(function(err){
+        if(err){
+            console.logo(err)
+            return;
+        }
+        db.userInfo(id,function(err,data){
+           if(data){
+                res.send({"code":200,"data":data})
+            }else{
+                res.send({"message":"数据库异常", "code":500})
+            }
+        });
+    });  
+}
 app.getList = function(req,res){
     db.connect(function(err){
         if(err){
