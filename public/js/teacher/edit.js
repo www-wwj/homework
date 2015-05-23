@@ -89,7 +89,7 @@ define([
 					}).filter('transResult',function(value){
 						// 单选传入int 多选传数组
 						if(du._$isNumber(value)===true){
-							return du.transAlphabet(value)
+							return du.transAlphabet(value);
 						}else{
 							var str ="";
 							value.forEach(function(element,index,arr){
