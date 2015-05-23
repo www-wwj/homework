@@ -55,6 +55,10 @@ define([
             this.__listModule = listpg._$$ListModulePG._$allocate(opt);
         },
         __onDelete:function(event){
+            if(event.id ==1){
+                du.showError("不能删除管理员账号");
+                return;
+            }
             this.__listModule._$delete(event);
         },
         __onUpdate:function(event){
