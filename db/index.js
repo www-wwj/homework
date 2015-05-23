@@ -16,6 +16,9 @@ module.exports = {
 	addUser : function(info, fcb) {
 		connect.run("insert into users(id, username, password,name,type) VALUES(?,?,?,?,?)", [null, info.username, info.password,info.name,info.type], fcb);
 	},
+	deleteUser : function(id,fcb) {
+		connect.run("delete from users where id =?", [id], fcb);
+	},
 	login:function(info,fcb){
 		connect.all("select * from users where username =? and password = ?",[info.username,info.password],fcb);
 	},

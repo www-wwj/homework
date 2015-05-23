@@ -35,6 +35,7 @@ app.post('/rest/teacher/addPaper',routes.addPaper);
 
 app.post('/rest/student/addResult',routes.addResult);
 
+app.delete('/rest/admin/deleteUser', routes.deleteUser);
 app.delete('/rest/teacher/bankDelete', routes.deleteBank);
 app.delete('/rest/teacher/paperDelete', routes.deletePaper);
 

@@ -206,4 +206,7 @@ router.deletePaper = function(req,res){
 router.addResult = function(req, res){
 	student.addResult(req,res);
 };
+router.deleteUser = function(req,res){
+	admin.deleteUser(req,res);
+}
 module.exports = router;

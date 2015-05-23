@@ -28,7 +28,7 @@ define([
      * @return {Void}
      */
     pro._$delete = function(data) {
-        du._$requestByREST('/rest/teacher/bankDelete', {
+        du._$requestByREST('/rest/admin/deleteUser', {
             method: 'DELETE',
             param: {
                 'id': data.id
