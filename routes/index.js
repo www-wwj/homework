@@ -175,7 +175,9 @@ router.doRegister = function(req,res){
 		}
 		db.searchUser(info,function(err,data){
 			if(data){
-				res.send({"code":403,"message":"用户名已存在"});			
+				db.addUser(info,function(err,data){
+					res.send({"code":200,"message":null});
+				});
 			}else{
 				db.addUser(info,function(error){
 					if(!error){

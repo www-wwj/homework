@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>查看题库</title>
+  <title>用户管理</title>
   <% include ../common/css.html %>
 </head>
 <body>
@@ -17,46 +17,33 @@
     </div>
 </div>
 <script id="main" type="text/regular">
-    <div class="m-subnav">
-        <ul id = "tab">
-            <li r-class={{'z-crt':tab ===0}}><a on-click ={tab = 0}>基本信息</a></li>
-            <li r-class={{'z-crt':tab ===1}}><a on-click ={tab = 1}>题&nbsp;&nbsp;&nbsp;&nbsp;目</a></li>
-        </ul>
-        {#if isNew ===false}
-            <a class="u-btn j-edit edit" r-class={{'f-dn':edit ===true}} on-click={this.editBank()}>编辑</a>
-            <a class="u-btn j-cancel edit edit-2" r-class={{'f-dn':edit ===false}} on-click={this.cancelEditBank()}>取消</a>
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
-            
-        {#else}
-            <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
-        {/if}
-    </div>
-    {#if edit === true}
-        <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
+    <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
             <div class="fmgroup">
                 <table>
                     <tr class="nick">
-                        <th>题库名称</th>
+                        <th>用户名：</th>
                         <td>
                             <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
                         </td>
                     </tr>
                      <tr class="nick">
-                        <th>题库描述</th>
+                        <th>密码：</th>
                         <td>
-                            <textarea class="u-ipt" type="text" name="nick"  r-model={questions.desc}></textarea> 
+                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
                         </td>
                     </tr>
                     <tr class="nick">
-                        <th>题库类别</th>
+                        <th>昵称：</th>
+                        <td>
+                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
+                        </td>
+                    </tr>
+                    <tr class="nick">
+                        <th>用户类型</th>
                         <td>
                             <select name="level"  r-model={questions.type}>
-                                <option value="0">{0|transType}</option>
                                 <option value="1">{1|transType}</option>
                                 <option value="2">{2|transType}</option>
-                                <option value="3">{3|transType}</option>
-                                <option value="4">{4|transType}</option>
-                                <option value="5">{5|transType}</option>
                             </select>
                         </td>
                     </tr>
@@ -64,137 +51,14 @@
             </div>
             <div class="fmgroup">
                 <div class="btnarea">
+                    <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
                     <a class="u-btn" href="/qBank">返回</a>
                 </div>
             </div>
         </div>
-        <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
-            <div class="g-mn2">
-                <div class="g-mnc2">
-                    <div id="basic" class="m-form">
-                        <div class="fmgroup">
-                            <legend>题目信息</legend>
-                            <table>
-                                <tr class="nick">
-                                    <th>题目名称</th>
-                                    <td>
-                                        <input class="u-ipt" type="text" name="nick" r-model = {questions.question[index].title}>
-                                    </td>
-                                </tr>
-                                <tr class="nick">
-                                    <th>题目类别</th>
-                                    <td>
-                                        <input type="radio" value="0" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>单选
-                                        <input type="radio" value="1" name="questiontype" r-model = {questions.question[index].type} on-change = {this.changeTag(index)}>多选
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="fmgroup">
-                            <legend>题目选项(在正确的选项上打勾)<a class="add" on-click = {this.addAnswer(index)} >加选项</a></legend> 
-                            {#if questions.question[index].type==0}
-                                <table>
-                                    {#list questions.question[index].answer as cell}
-                                        <tr>
-                                            <th>选项{cell_index|transAlphabet}</th>
-                                            <td>
-                                                <input type="radio" name="radio" value="{cell_index}" r-model={questions.question[index].result}>
-                                                <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
-                                            </td>
-                                        </tr>
-                                     {/list}   
-                                </table>
-                            {#else}
-                                 <table>
-                                    {#list questions.question[index].answer as cell}
-                                        <tr>
-                                            <th>选项{cell_index|transAlphabet}</th>
-                                            <td>
-                                                <input type="checkbox" name="checkbox-{cell_index}"  r-model={questions.question[index].result[cell_index]}>
-                                                <input class="u-ipt" type="text" r-model = {cell.name}>
-                                                <a  class="del" on-click = {this.rmAnswer(index,cell_index)}></a>
-                                            </td>
-                                        </tr>
-                                     {/list}   
-                                </table>
-                            {/if}
-                        </div>
-                    </div>
-                </div>
-                <div class="g-sd2 rightBar">
-                    <div class="title">题目列表</div>
-                    <ul>
-                        {#list questions.question as item}
-                            <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
-                        {/list}
-                    </ul>
-                    <div class="operate">
-                        <a class="u-btn u-btn-sw btn " on-click = {this.addQuestion()}>添加题目</a>
-                        <a class="u-btn u-btn-sw btn" on-click = {this.delQuestion(index)}>删除题目</a>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    {#else}
-        <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
-            <div class="fmgroup">
-                <table>
-                    <tr class="nick">
-                        <th>题库名称</th>
-                        <td>
-                            {questions.name}
-                        </td>
-                    </tr>
-                     <tr class="nick">
-                        <th>题库描述</th>
-                        <td>
-                           {questions.desc} 
-                        </td>
-                    </tr>
-                    <tr class="nick">
-                        <th>题库类别</th>
-                        <td>
-                            {questions.type|transType}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="fmgroup">
-                <div class="btnarea">
-                    <a class="u-btn" href="/qBank">返回</a>
-                </div>
-            </div>
-        </div>    
-        <div id="questions"  class="m-questions" r-class={{'f-dn':tab ===0}}>
-            <div class="g-mn2">
-                <div class="g-mnc2">
-                    <div id="basic" class="view">
-                        <h2>{index+1}.&nbsp;{questions.question[index].title}</h2>
-                        {#list questions.question[index].answer as cell}
-                            <p class="cell">{cell_index|transAlphabet}.&nbsp;{cell.name}</p>
-                         {/list} 
-                        <p class="answer">正确答案：&nbsp;{questions.question[index].result|transResult}</p>
-                        <p class="btns">
-                        {#if index>0}<a class="u-btn" on-click = {index = index -1}>上一题</a>{/if}
-                        {#if index < questions.question.length -1}<a class="u-btn" on-click = {index = index + 1}>下一题</a>{/if}
-                        </p>
-                    </div>
-                </div>
-                <div class="g-sd2 rightBar">
-                    <div class="title">题目列表</div>
-                    <ul>
-                        {#list questions.question as item}
-                        <li class="box"  on-click = {index = item_index} r-class={{'crt':index == item_index}}>{item_index+1}</li>
-                        {/list}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    {/if}
 </script>
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
-<script src="<%=jsRoot%>teacher/edit.js"></script>
+<script src="<%=jsRoot%>admin/edit.js"></script>
 </body>
 </html>

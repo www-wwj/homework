@@ -7,7 +7,7 @@ app.listPage = function(req,res){
 app.getList = function(req,res){
 	res.send({"message":"","result":testData})
 }
-app.addPage =function(req,res){
+app.addPage = function(req,res){
 	res.render('admin/edit', { userType: 1,pageName:'userManage',userType:0,username:req.session.username});
 }
 app.editPage =function(req,res){
