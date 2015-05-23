@@ -41,9 +41,9 @@
                     <tr class="nick">
                         <th>用户类型：</th>
                         <td>
-                            <select id="userType" name="userType"  r-model={questions.type}>
-                                <option value="1">{"学生"}</option>
-                                <option value="2">{"教师"}</option>
+                            <select id="userType" name="userType"  r-model={userType}>
+                                <option value="2">{"学生"}</option>
+                                <option value="1">{"教师"}</option>
                             </select>
                         </td>
                     </tr>
@@ -51,8 +51,8 @@
             </div>
             <div class="fmgroup">
                 <div class="btnarea">
-                    <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveUser()}>保存</a>
-                    <a class="u-btn" href="/qBank">返回</a>
+                    <a class="u-btn j-save edit"  on-click={this.saveUser()}>保存</a>
+                    <a class="u-btn" href="/userManage">返回</a>
                 </div>
             </div>
         </div>
