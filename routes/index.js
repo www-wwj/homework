@@ -175,11 +175,15 @@ router.doRegister = function(req,res){
 		}
 		db.searchUser(info,function(err,data){
 			if(data){
-				db.addUser(info,function(err,data){
-					res.send({“code”:200,”message”:null})；
-				});
+				res.send({"code":403,"message":"用户名已存在"});			
 			}else{
-				res.render('register',{ title: '用户注册',errors:"用户名已存在"});
+				db.addUser(info,function(error){
+					if(!error){
+                   		res.send({"code":200, "message":'',"result":true})
+	                }else{
+	                    res.send({"code":401, "message":"操作失败","result":false})                
+	                }
+				})
 			}
 		});
 	});

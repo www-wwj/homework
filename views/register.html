@@ -1,4 +1,4 @@
-<% include common/config.html %>
+<% include ./common/config.html %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,21 +50,88 @@
 	}
 </style>
 <body>
-	<div id="container" class="container">
-	<% if (locals.errors) { %> 
-		<div id="alt_warning" class="alert alert-warning"> 
-		  <%= errors %> 
-		</div> 
-	<% } %>  
-		<form class="form-signin" role="form" method="post">
-	        <h4 class="form-signin-heading">注册</h4>
-	        <input id="txtUserName" name="txtUserName" type="text" class="form-control" placeholder="用户名" required autofocus />
-	        <input id="txtUserPwd" name="txtUserPwd" type="password" class="form-control" placeholder="密码" required/>
-	        <input id="txtUserRePwd"  name="txtUserRePwd" type="password" class="form-control" placeholder="重复密码" required/> 
-	        <input id="txtName" name="txtName" type="text" class="form-control" placeholder="昵称" required autofocus />
-	        <a class="btn btn-link" href="/login" role="button">登 陆</a>
-	        <button id="btnSub" class="btn btn-lg btn-primary" type="submit">注  册</button>
-		</form>    
-	</div> 
+	<div class="form-signin">
+        <h4 class="form-signin-heading">注册</h4>
+        <input id="userName" name="userName" type="text" class="form-control" placeholder="用户名" required autofocus />
+        <input id="userPwd" name="userPwd" type="password" class="form-control" placeholder="密码" required/>
+        <input id="userRePwd"  name="userRePwd" type="password" class="form-control" placeholder="重复密码" required/> 
+        <input id="nickName" name="nickName" type="text" class="form-control" placeholder="昵称" required autofocus />
+        <a class="btn btn-link" href="/login" role="button">登 陆</a>
+        <button id="btnSub" class="btn btn-lg btn-primary" type="butto">注  册</button>
+	</div>  
+<!-- @DEFINE -->
+<script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
+<script type="text/javascript">
+	NEJ.define([
+		'base/element',
+		'{pro}base/util.js',
+		'base/event',
+	  ],function(e,du,v){
+	  	var page ={
+	  		_init:function(){
+	  			this._initNode();
+	  			this._initEvt();
+	  		},
+	  		_initNode:function() {
+	  			this._userName = e._$get("userName");
+	  			this._userPwd = e._$get("userPwd");
+	  			this._userRePwd = e._$get("userRePwd");
+	  			this._nickName = e._$get("nickName");
+	  			this._submit = e._$get("btnSub");
+	  		},
+	  		_initEvt:function () {
+	  			v._$addEvent(this._submit,"click",this._postInfo._$bind(this));
+	  		},
+	  		_postInfo:function () {
+	  			if(this._validate()){
+	  				var data = {
+	  					username:this._userName.value.trim(),
+	  					password:this._userPwd.value.trim(),
+	  					name:this._nickName.value.trim()
+	  				}
+	  				du._$requestByREST("/rest/register", {
+			            type:"json",
+			            method:"post",
+			            data: data,
+			            onerror : this._cbGetData._$bind(this),
+			            onload: this._cbGetData._$bind(this)
+			        });
+	  			}
+	  		},
+  			_cbGetData: function(data){
+				if(data.code ===200){
+					du.showSuccess("注册成功");
+					setTimeout(function(){
+						location.href ="/login";
+					},2000)
+				}else{
+					du.showError(data.message||"服务器异常")
+				}
+			},
+			_validate:function(){
+				if(this._userName.value.trim() ==""){
+					du.showError("用户名不能为空");
+					return false;
+				}
+				if(this._userPwd.value.trim() ==""){
+					du.showError("密码不能为空");
+					return false;
+				}
+				if(this._userPwd.value.trim()!=this._userRePwd.value.trim()){
+					du.showError("两次密码不一致");
+					return false;
+				}
+				if(this._nickName.value.trim() ==""){
+					du.showError("昵称不能为空");
+					return false;
+				}
+				return true;
+			}
+
+	  	};
+	  	page._init();
+
+  	})
+	</script>
 </body>
 </html>

@@ -20,7 +20,7 @@ module.exports = {
 		connect.all("select * from users where username =? and password = ?",[info.username,info.password],fcb);
 	},
 	searchUser:function(info,fcb){
-		connect.all("select * from users where username =? ",[info.username],fcb);
+		connect.get("select * from users where username =? ",[info.username],fcb);
 	},
 	//老师相关
 	addBank : function(info,fcb) {
