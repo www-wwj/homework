@@ -8,7 +8,9 @@ define([
 				userName:"",
 				userPwd:"",
 				nickName:"",
-				userType:2
+				userType:2,
+				edit:0,
+				admin:0,
 			};
 
 		page ={
@@ -33,10 +35,19 @@ define([
 
 			__cbGetData: function(data){
 				if(data.code ===200){
-					userName = data.userName,
-					userPwd = data.userPwd,
-					nickName = data.nickName,
-					userType = data.userType
+					var user = {
+						userName :data.data.username,
+						userPwd:data.data.password,
+						nickName:data.data.name,
+						userType :data.data.type,
+						edit:1,
+						admin:0,
+					}
+					if(du.getidTag()==1){
+						user.admin =1;
+					}
+					this.__data = user;
+					this.__initTemplate();
 				}else{
 					du.showError("error")
 				}
@@ -64,11 +75,15 @@ define([
 							du.showSuccess("保存成功");
 							setTimeout(function(){location.href="/userManage"},3000)
 						};
+
 						var data = {
 		  					username:this.data.userName.trim(),
 		  					password:this.data.userPwd.trim(),
 		  					name:this.data.nickName.trim(),
 		  					type:this.data.userType
+		  				}
+		  				if(location.pathname.indexOf('edit')!== -1){
+		  					data.id = du.getidTag();
 		  				}
 						that.__validate(data,cb)
 					}

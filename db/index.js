@@ -16,6 +16,9 @@ module.exports = {
 	addUser : function(info, fcb) {
 		connect.run("insert into users(id, username, password,name,type) VALUES(?,?,?,?,?)", [null, info.username, info.password,info.name,info.type], fcb);
 	},
+	editUser : function(info,fcb) {
+		connect.run("update users set username=?, password=?,name=?,type=? where id = ?" , [info.username, info.password,info.name,info.type,info.id], fcb);
+	},
 	deleteUser : function(id,fcb) {
 		connect.run("delete from users where id =?", [id], fcb);
 	},
@@ -76,7 +79,7 @@ module.exports = {
 	//管理员
 	getUserList :function(fcb){
 		connect.all("select * from users",fcb);
-	}
+	},
 	userInfo :function(id,fcb){
 		connect.get("select * from users where id =?",[id],fcb);
 	}

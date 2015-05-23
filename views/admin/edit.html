@@ -23,7 +23,11 @@
                     <tr class="nick">
                         <th>用户名：</th>
                         <td>
+                            {#if edit == 0}
                             <input class="u-ipt" type="text" id="userName" name="userName" r-model={userName}>
+                            {#else}
+                                {userName}
+                            {/if}
                         </td>
                     </tr>
                      <tr class="nick">
@@ -41,10 +45,16 @@
                     <tr class="nick">
                         <th>用户类型：</th>
                         <td>
+                            {#if admin ==1}
+                                <select id="userType" name="userType"  r-model={userType}>
+                                    <option value="0">管理员</option>
+                                </select>
+                            {#else}
                             <select id="userType" name="userType"  r-model={userType}>
-                                <option value="2">{"学生"}</option>
-                                <option value="1">{"教师"}</option>
+                                <option value="2">学生</option>
+                                <option value="1">教师</option>
                             </select>
+                            {/if}
                         </td>
                     </tr>
                 </table>

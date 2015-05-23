@@ -4,9 +4,6 @@ var app ={};
 app.listPage = function(req,res){
 	res.render('admin/main',{pageName:"userManage",userType:0,username:req.session.username});
 }
-app.getList = function(req,res){
-	res.send({"message":"","result":testData})
-}
 app.addPage =function(req,res){
 	res.render('admin/edit', { pageName:'userManage',userType:0,username:req.session.username});
 }
@@ -52,7 +49,7 @@ app.deleteUser= function(req,res){
     if(req.session.userType !== 0){
         res.send({"code":402, "message":"非法用户","result":false})
     }else{
-        if(id==0){
+        if(id==1){
             res.send({"code":401, "message":"管理员不能删除","result":false})  
         }
         db.connect(function(err){

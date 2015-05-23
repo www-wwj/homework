@@ -79,7 +79,7 @@ router.doMapping = function(req,res){
 				case '/main':
 			  		admin.mainPage(req,res);
 				  	break;
-				case'/registerUser':
+				case'/rest/registerUser':
 				 	admin.userInfo(req,res);
 				 	break;
 			  	case '/userManage':
@@ -165,32 +165,43 @@ router.doLogin = function(req, res){
 	});	
 };
 router.doRegister = function(req,res){
+	var id = req.body.id;
 	var info = {
 		username: req.body.username,
 		password: req.body.password,
 		name: req.body.name,
-		type: req.body.type||2
+		type: req.body.type||2,
+		id:id
 	}
 	db.connect(function(err){
 		if(err){
 			console.logo(err)
 			return;
 		}
-		db.searchUser(info,function(err,data){
-			if(data){
-				db.addUser(info,function(err,data){
-					res.send({"code":200,"message":null});
-				});
-			}else{
-				db.addUser(info,function(error){
-					if(!error){
-                   		res.send({"code":200, "message":'',"result":true})
-	                }else{
-	                    res.send({"code":401, "message":"操作失败","result":false})                
-	                }
-				})
-			}
-		});
+		if(!id){
+			db.searchUser(info,function(err,data){
+				if(data){
+					res.send({"code":403,"message":"用户名已存在"});	
+				}else{
+					db.addUser(info,function(error){
+						if(!error){
+	                   		res.send({"code":200, "message":'',"result":true})
+		                }else{
+		                    res.send({"code":401, "message":"操作失败","result":false})                
+		                }
+					})
+				}
+			});
+		}else{
+			db.editUser(info,function(error){
+                console.log(error)
+                if(!error){
+                   res.send({"code":200, "message":'',"result":true})
+                }else{
+                    res.send({"code":401, "message":"操作失败","result":false})                
+                }
+            });
+		}		
 	});
 };
 router.addBank = function(req, res){
