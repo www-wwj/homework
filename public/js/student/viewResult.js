@@ -51,6 +51,8 @@ define([
 						// 单选传入int 多选传数组
 						if(du._$isNumber(value)===true){
 							return du.transAlphabet(value)
+						}else if(du._$isString(value)===true){
+							return du.transAlphabet(Number(value));
 						}else{
 							var str ="";
 							value.forEach(function(element,index,arr){
