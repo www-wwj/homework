@@ -23,27 +23,27 @@
                     <tr class="nick">
                         <th>用户名：</th>
                         <td>
-                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
+                            <input class="u-ipt" type="text" id="userName" name="userName" r-model={userName}>
                         </td>
                     </tr>
                      <tr class="nick">
                         <th>密码：</th>
                         <td>
-                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
+                            <input class="u-ipt" type="text" id="userPwd" name="userPwd" r-model={userPwd}>
                         </td>
                     </tr>
                     <tr class="nick">
                         <th>昵称：</th>
                         <td>
-                            <input class="u-ipt" type="text" name="nick" r-model={questions.name}>
+                            <input class="u-ipt" type="text" id="nickName" name="nickName" r-model={nickName}>
                         </td>
                     </tr>
                     <tr class="nick">
-                        <th>用户类型</th>
+                        <th>用户类型：</th>
                         <td>
-                            <select name="level"  r-model={questions.type}>
-                                <option value="1">{1|transType}</option>
-                                <option value="2">{2|transType}</option>
+                            <select id="userType" name="userType"  r-model={questions.type}>
+                                <option value="1">{"学生"}</option>
+                                <option value="2">{"教师"}</option>
                             </select>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
             </div>
             <div class="fmgroup">
                 <div class="btnarea">
-                    <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveBank()}>保存</a>
+                    <a class="u-btn j-save edit" r-class={{'f-dn':edit ===false}} on-click={this.saveUser()}>保存</a>
                     <a class="u-btn" href="/qBank">返回</a>
                 </div>
             </div>

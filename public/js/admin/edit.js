@@ -12,11 +12,14 @@ define([
 
 		page ={
 			__init:function(){
-				this.__initData();
 				this.__initNode();
+				this.__initData();
 			},
 			__initNode:function(){
-				
+				this._userName = e._$get("userName");
+	  			this._userPwd = e._$get("userPwd");
+	  			this._nickName = e._$get("nickName");
+	  			this._userType = e._$get("userType");
 			},
 			__initData:function(){
 				this.__index = 0;
@@ -30,13 +33,13 @@ define([
 			        });
 				}else{
 					this.__edit = true;
+					this.__isNew = true;
 					this.__data ={
 						name:'',
 						desc:'',
 						type:0,
 						question:[du.clone(emptyQuestion[0])]
 					}
-					this.__isNew = true;
 					this.__initTemplate();
 				}	
 				
@@ -197,57 +200,49 @@ define([
 							this.data.questions.question.splice(index,1);
 						}
 							
+					},
+					//保存题库
+					saveUser:function(){
+						var cb = function(){
+							du.showSuccess("保存成功");
+							if(that.__isNew === true){
+								setTimeout(function(){location.href="/userManage"},3000)
+							}else{
+								setTimeout(function(){location.reload()},3000)
+							}
+							
+						}
+						var data = {
+	  					username:this._userName.value.trim(),
+	  					password:this._userPwd.value.trim(),
+	  					name:this._nickName.value.trim(),
+	  					type:this._userType.value.trim()
+	  				}
+						that.__validate(data,cb)
 					}
 				});
 				component.$inject('#app'); 
 			},
 			// 数据验证
 			__validate:function(data,cb){
-				var basic = data,
-					questions = data.question;
-				if(basic.name.trim() ===""){
-					du.showError("题库名不能为空");
-					return;
+				if(this._userName.value.trim() ==""){
+					du.showError("用户名不能为空");
+					return false;
 				}
-				if(basic.desc.trim()===""){
-					du.showError("题库描述不能为空");
-					return;
+				if(this._userPwd.value.trim() ==""){
+					du.showError("密码不能为空");
+					return false;
 				}
-				try{
-					questions.forEach(function(element,index,arr){
-						var result = element.result,
-							answer = element.answer;
-						if(element.title.trim()===""){
-							du.showError("第"+(index+1)+"题名称不能为空");
-							throw BreakException;
-						}
-						try{
-							answer.forEach(function(ele,offset,array){
-								if(ele.name.trim()===""){
-									du.showError("第"+(index+1)+"题"+"第"+(offset+1)+"选项名称不能为空");
-									throw BreakException;
-								}
-							})
-						}catch(e){
-							throw BreakException;
-						}
-						if(du._$isArray(result)===true){
-							for (var i = result.length - 1; i >= 0; i--) {
-								if(result[i]===true){
-									break;
-								}
-							};
-							if(i < 0){
-								du.showError("第"+(index+1)+"题"+"选项答案不能为空");
-								throw BreakException;
-							}
-						}
-						
-					})
-				}catch(e){
-					return;
+				if(this._nickName.value.trim() ==""){
+					du.showError("昵称不能为空");
+					return false;
 				}
-				this.__doPost(cb);
+				if(this._userType.value.trim() ==""){
+					du.showError("请选择用户类型");
+					return false;
+				}
+				return true;
+				this.__doPost(data,cb);
 			},
 
 			/**
@@ -255,25 +250,14 @@ define([
 			 * @param  {Function} cb 成功请求后的回调
 			 * @return     
 			 */
-			__doPost:function(cb){
-				if(this.__isNew){
-					du._$requestByREST("/rest/teacher/addBank", {
-			            type:"json",
-			            method:"post",
-			            data: this.__data,
-			            onerror : this.__cbDoPost._$bind(this,cb),
-			            onload: this.__cbDoPost._$bind(this, cb)
-			        });
-				}else{
-					du._$requestByREST("/rest/teacher/editBank", {
-			            type:"json",
-			            method:"post",
-			            data: this.__data,
-			            onerror : this.__cbDoPost._$bind(this,cb),
-			            onload: this.__cbDoPost._$bind(this, cb)
-			        });
-				}
-				
+			__doPost:function(data,cb){
+				du._$requestByREST("/rest/register", {
+		            type:"json",
+		            method:"post",
+		            data: data,
+		            onerror : this.__cbDoPost._$bind(this,cb),
+		            onload: this.__cbDoPost._$bind(this, cb)
+		        });	
 			},
 			__cbDoPost:function(cb,data){
 				if(data&&data.code ===200){
