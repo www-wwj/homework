@@ -11,6 +11,7 @@ define([
 				userType:2,
 				edit:0,
 				admin:0,
+				test:[1,2,[2,3]]
 			};
 
 		page ={
@@ -42,6 +43,7 @@ define([
 						userType :data.data.type,
 						edit:1,
 						admin:0,
+						test:[1,2,[2,3]]
 					}
 					if(du.getidTag()==1){
 						user.admin =1;

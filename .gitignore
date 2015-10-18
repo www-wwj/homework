@@ -1,4 +1,1 @@
-*.log
-*.settings
-*.project
-*.svn
+node_modules

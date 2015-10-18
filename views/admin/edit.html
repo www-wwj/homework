@@ -17,6 +17,9 @@
     </div>
 </div>
 <script id="main" type="text/regular">
+    {#list test as item}
+        {item|somefun}
+    {/list}
     <div id="basic" class="m-form" r-class={{'f-dn':tab ===1}}>
             <div class="fmgroup">
                 <table>
@@ -66,6 +69,7 @@
                 </div>
             </div>
         </div>
+
 </script>
 <!-- @DEFINE -->
 <script src="<%=libRoot%>define.js?pro=<%=jsRoot%>"></script>
